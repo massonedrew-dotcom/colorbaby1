@@ -1,0 +1,102 @@
+# ============================================================================
+#  Color Baby House — конфигурация Apache для хостинга в Узбекистане
+#  Файл кладётся в КОРЕНЬ сайта (там же, где index.html).
+#  Требуются модули: mod_rewrite, mod_headers, mod_deflate, mod_expires.
+#  Почти на всех узбекских шаред-хостингах (Ahost, Uzinfocom, Hostbe) они есть.
+# ============================================================================
+
+Options -Indexes
+AddDefaultCharset UTF-8
+
+# ----------------------------------------------------------------------------
+# 1. Редиректы: один сайт — один адрес
+#    Без этого одна и та же страница доступна по 4+ адресам, поисковик считает
+#    их дублями и сам выбирает главный — обычно не тот, который нужен.
+# ----------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # http:// → https://  (SSL-сертификат обязателен, см. SECURITY.md)
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # www.colorbabyhouse.uz → colorbabyhouse.uz
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # /index.html и /index.php → / (главная должна быть одна)
+  RewriteCond %{THE_REQUEST} \s/+index\.(html|php)[\s?] [NC]
+  RewriteRule ^(.*)index\.(html|php)$ /$1 [R=301,L]
+
+  # Убираем слэш в конце у файлов и лишние слэши подряд
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+  # Старый адрес главной (сайт раньше жил во вложенной папке) → на корень
+  RewriteRule ^ui_kits/website/(standalone|index)\.html$ / [R=301,L]
+  RewriteRule ^ui_kits/website/privacy\.html$ /privacy.html [R=301,L]
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# 2. Страница 404
+#    Отдаётся с кодом ответа 404 — это то, что проверяет Яндекс.Вебмастер.
+# ----------------------------------------------------------------------------
+ErrorDocument 404 /404.html
+
+# ----------------------------------------------------------------------------
+# 3. Заголовки безопасности
+# ----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://mc.yandex.ru https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://unpkg.com https://mc.yandex.ru https://www.google-analytics.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-src https://yandex.uz https://yandex.ru https://yandex.com; frame-ancestors 'none'"
+
+  # Служебные файлы дизайн-системы не должны попадать в поиск.
+  # X-Robots-Tag работает даже там, где нельзя вставить <meta> (фрагменты, JSON).
+  <FilesMatch "\.(card\.html|md|json)$">
+    Header set X-Robots-Tag "noindex, nofollow"
+  </FilesMatch>
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# 4. Сжатие — сокращает вес HTML/CSS/JS в 3–5 раз
+# ----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml image/svg+xml
+  AddOutputFilterByType DEFLATE font/woff2 application/font-woff2
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# 5. Кэширование статики
+#    Картинки и шрифты не меняются — пусть браузер держит их у себя.
+#    HTML не кэшируем, иначе правки на сайте не увидят вернувшиеся посетители.
+# ----------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg              "access plus 1 year"
+  ExpiresByType image/png               "access plus 1 year"
+  ExpiresByType image/webp              "access plus 1 year"
+  ExpiresByType image/svg+xml           "access plus 1 year"
+  ExpiresByType image/x-icon            "access plus 1 year"
+  ExpiresByType font/woff2              "access plus 1 year"
+  ExpiresByType text/css                "access plus 1 month"
+  ExpiresByType application/javascript  "access plus 1 month"
+  ExpiresByType text/html               "access plus 0 seconds"
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# 6. MIME-типы, которые старые Apache не знают
+# ----------------------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+  AddType application/manifest+json .webmanifest
+  # .jsx отдаётся как обычный JS — иначе браузер откажется его выполнять
+  AddType text/babel .jsx
+</IfModule>

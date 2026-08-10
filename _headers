@@ -1,0 +1,15 @@
+# HTTP security headers для Netlify / Cloudflare Pages.
+# Основной хостинг — Apache/nginx в Узбекистане, для них правила в .htaccess и
+# nginx.conf.example. Этот файл нужен, только если сайт публикуется на Netlify
+# или Cloudflare Pages. Заголовки задаются на сервере и защищают надёжнее,
+# чем <meta> в HTML.
+#
+# 'unsafe-eval' и unpkg.com убраны: Babel в браузере больше не используется
+# (JSX собирается заранее), React и иконки лежат на своём домене.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://mc.yandex.ru https://www.google-analytics.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-src https://yandex.uz https://yandex.ru https://yandex.com; frame-ancestors 'none'
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains

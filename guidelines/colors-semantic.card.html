@@ -1,0 +1,25 @@
+<!-- @dsCard group="Colors" viewport="700x170" name="Semantic & status" subtitle="Success, info, warning, danger — each with a soft tint." -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--paper); padding: 24px; font-family: var(--font-body); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .pair { display: flex; gap: 8px; }
+  .solid { flex: 1.4; border-radius: var(--radius-md); height: 64px; box-shadow: var(--shadow-xs); display:flex; align-items:flex-end; padding:8px; }
+  .soft { flex: 1; border-radius: var(--radius-md); height: 64px; border: 1px solid var(--border); }
+  .lab { font-size: 13px; color: #fff; font-weight: 800; }
+  .name { font-size: 11px; font-weight: 700; color: var(--color-text); margin-top: 8px; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div><div class="pair"><div class="solid" style="background:var(--color-success)"><span class="lab">Aa</span></div><div class="soft" style="background:var(--color-success-soft)"></div></div><div class="name">success · mint</div></div>
+    <div><div class="pair"><div class="solid" style="background:var(--color-info)"><span class="lab">Aa</span></div><div class="soft" style="background:var(--color-info-soft)"></div></div><div class="name">info · sky</div></div>
+    <div><div class="pair"><div class="solid" style="background:var(--color-warning)"><span class="lab">Aa</span></div><div class="soft" style="background:var(--color-warning-soft)"></div></div><div class="name">warning · orange</div></div>
+    <div><div class="pair"><div class="solid" style="background:var(--color-danger)"><span class="lab">Aa</span></div><div class="soft" style="background:var(--color-danger-soft)"></div></div><div class="name">danger</div></div>
+  </div>
+</body>
+</html>

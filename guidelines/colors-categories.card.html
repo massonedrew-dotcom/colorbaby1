@@ -1,0 +1,26 @@
+<!-- @dsCard group="Colors" viewport="700x160" name="Programme categories" subtitle="Colour-coding for classes — English, dance, chess, acting, robotics, speech." -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--paper); padding: 24px; font-family: var(--font-body); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .chip { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--radius-pill); background: var(--color-bg); border: 1px solid var(--border); }
+  .dot { width: 26px; height: 26px; border-radius: var(--radius-circle); flex: none; box-shadow: var(--shadow-xs); }
+  .t { font-size: 14px; font-weight: 700; color: var(--color-text); }
+  .v { font-size: 11px; color: var(--color-text-muted); font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="chip"><span class="dot" style="background:var(--cat-english)"></span><span><div class="t">Английский</div><div class="v">--cat-english</div></span></div>
+    <div class="chip"><span class="dot" style="background:var(--cat-dance)"></span><span><div class="t">Танцы</div><div class="v">--cat-dance</div></span></div>
+    <div class="chip"><span class="dot" style="background:var(--cat-chess)"></span><span><div class="t">Шахматы</div><div class="v">--cat-chess</div></span></div>
+    <div class="chip"><span class="dot" style="background:var(--cat-acting)"></span><span><div class="t">Актёрское</div><div class="v">--cat-acting</div></span></div>
+    <div class="chip"><span class="dot" style="background:var(--cat-robotics)"></span><span><div class="t">Робототехника</div><div class="v">--cat-robotics</div></span></div>
+    <div class="chip"><span class="dot" style="background:var(--cat-speech)"></span><span><div class="t">Логопед</div><div class="v">--cat-speech</div></span></div>
+  </div>
+</body>
+</html>

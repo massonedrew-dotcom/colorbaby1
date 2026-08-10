@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Страница не найдена — Color Baby House</title>
+<meta name="description" content="Такой страницы на сайте Color Baby House нет. Вернитесь на главную или позвоните нам — подскажем.">
+<!-- Страницы-ошибки не должны попадать в индекс, но ссылки с них робот пусть обойдёт -->
+<meta name="robots" content="noindex, follow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+<style>
+  html, body { margin: 0; min-height: 100%; background: var(--cream, #FFF9FC); }
+  body {
+    font-family: var(--font-body, system-ui, sans-serif); color: var(--color-text, #1D2B4C);
+    display: flex; align-items: center; justify-content: center; min-height: 100vh;
+    padding: 24px; box-sizing: border-box;
+  }
+  .wrap { max-width: 560px; text-align: center; }
+  .sun { width: 96px; height: 96px; margin: 0 auto 20px; display: block; animation: spin 26s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .sun { animation: none; } }
+  .code {
+    font-family: var(--font-display, system-ui); font-weight: 800;
+    font-size: clamp(64px, 14vw, 112px); line-height: 1;
+    background: var(--gradient-pink, linear-gradient(90deg, #EE4A9B, #22BFD1));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin: 0 0 8px;
+  }
+  h1 { font-family: var(--font-display, system-ui); font-weight: 800; font-size: clamp(24px, 4vw, 34px); color: var(--ink-900, #1D2B4C); margin: 0 0 12px; }
+  p { font-size: 17px; line-height: 1.6; color: var(--color-text-muted, #6B6480); margin: 0 0 28px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 26px; border-radius: 999px; font-weight: 800; font-size: 16px;
+    text-decoration: none; transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(255, 77, 151, .28); }
+  .btn-main { background: var(--gradient-pink, linear-gradient(90deg, #EE4A9B, #22BFD1)); color: #fff; }
+  .btn-soft { background: #fff; color: var(--color-primary, #EE4A9B); border: 2px solid var(--pink-200, #F9B2D2); }
+  .links { margin-top: 30px; font-size: 15px; color: var(--color-text-muted, #6B6480); }
+  .links a { color: var(--color-primary, #EE4A9B); font-weight: 700; text-decoration: none; margin: 0 8px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="sun" src="assets/logo-cbh-mark.svg" alt="Color Baby House" width="96" height="96">
+    <p class="code">404</p>
+    <h1>Такой страницы у нас нет</h1>
+    <p>
+      Возможно, вы перешли по старой ссылке или ошиблись в адресе.
+      Ничего страшного — вернитесь на главную или просто позвоните, мы всё подскажем.
+    </p>
+    <div class="actions">
+      <a class="btn btn-main" href="index.html">На главную</a>
+      <a class="btn btn-soft" href="tel:+998901766999">+998 90 176 69 99</a>
+    </div>
+    <p class="links">
+      <a href="index.html#programs">Занятия</a>·
+      <a href="index.html#pricing">Цены</a>·
+      <a href="index.html#faq">Вопросы</a>·
+      <a href="index.html#contacts">Контакты</a>
+    </p>
+  </div>
+</body>
+</html>

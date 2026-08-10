@@ -1,0 +1,107 @@
+/* Color Baby House — адаптив и мелкая полировка. Анимации — в motion.css. */
+
+/* Страховка от горизонтального скролла из-за декоративных карточек со смещением */
+html, body { overflow-x: hidden; }
+
+/* ---------- Фон сайта: живая заливка в четырёх цветах логотипа ----------
+   Белый лист сайту не идёт: логотип на нём смотрится как наклейка, а страница
+   выглядит чужой. Поэтому фон здесь собран из тех же четырёх цветов, что и
+   кольцо мазков — фуксия, жёлтый, бирюза, синий — и медленно переливается
+   (cs-page-wash, 48 секунд на цикл).
+
+   Заливка живёт на <body>, а сверху ещё лежит слой .cs-backdrop (App.jsx):
+   пятна, кольцо, облака и шарики. Оттенки взяты почти прозрачные — иначе
+   текст на них перестаёт читаться, а весь контраст на сайте выверен по AA. */
+:root {
+  --cream: #FFF7FB;       /* базовый тон под заливкой — тёплый розовый шёпот */
+  --sand-50: #EFF9FC;     /* «утопленные» поверхности — бирюзовый */
+  --sand-100: #E4F3F9;    /* мягкие плитки */
+  --color-bg: var(--cream);
+  --color-bg-alt: var(--sand-50);
+}
+
+body {
+  background-color: var(--cream);
+  /* Четыре мягких цветных пятна по углам — по одному на цвет логотипа */
+  background-image:
+    radial-gradient(58% 46% at 12% 8%,   rgba(238, 74, 155, 0.16) 0%, transparent 70%),
+    radial-gradient(52% 42% at 88% 12%,  rgba(251, 209, 48, 0.20) 0%, transparent 70%),
+    radial-gradient(60% 48% at 84% 82%,  rgba(34, 191, 209, 0.18) 0%, transparent 70%),
+    radial-gradient(56% 44% at 10% 88%,  rgba(31, 111, 190, 0.14) 0%, transparent 70%);
+  background-attachment: fixed;      /* заливка стоит, контент скользит по ней */
+  background-size: 180% 180%;
+  animation: cs-page-wash 48s ease-in-out infinite alternate;
+}
+/* Пятна медленно расходятся и сходятся — фон «дышит», не мигая */
+@keyframes cs-page-wash {
+  from { background-position: 0% 0%,   100% 0%,   100% 100%, 0% 100%; }
+  to   { background-position: 18% 12%, 82% 14%,   80% 86%,   16% 88%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+}
+/* Прежняя строка `body { background: var(--cream) }` удалена: сокращённое
+   свойство сбрасывало background-image живой заливки выше. */
+
+/* Анимации появления, микроанимации и весь остальной motion — в motion.css */
+
+/* ---------- Мобильное меню ---------- */
+.cs-burger { display: none; }              /* по умолчанию (десктоп) скрыт */
+.cs-mobile-nav { display: none; }
+
+/* ---------- Шапка: бургер (<= 1380px) ----------
+   Точка перехода вычислена по факту: горизонтальному меню нужно 1305px
+   вместе с логотипом и кнопками. Ниже этого оно не помещается, поэтому
+   меню прячется и появляется бургер — раньше это происходило только на
+   900px, и в промежутке пункты налезали друг на друга.
+   Порог поднят с 1340 до 1380px: в меню добавился пункт «Вопросы», а в
+   кнопки — телефон, и прежнего запаса по ширине стало не хватать. */
+@media (max-width: 1380px) {
+  .cs-nav { display: none !important; }
+  .cs-burger { display: inline-flex !important; }
+  .cs-mobile-nav.cs-mobile-nav-open { display: flex !important; }
+}
+
+/* ---------- Планшеты и телефоны (<= 900px) ---------- */
+@media (max-width: 900px) {
+  /* Баннер уже выстроен по центру в одну колонку — на телефоне только
+     уменьшаем знак, чтобы он не съедал экран целиком. */
+  img.cs-banner-mark { width: 116px !important; height: 116px !important; }
+  .cs-hero-grid,
+  .cs-care-grid,
+  .cs-summer-grid,
+  .cs-enroll-grid,
+  .cs-contacts-grid,
+  .cs-pricing-grid,
+  .cs-pricing-note,
+  .cs-nanny-grid,
+  .cs-schedule-grid,
+  .cs-reviews-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .cs-programs-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Подвал в 2 колонки, бренд-блок на всю ширину */
+  .cs-footer-grid { grid-template-columns: 1fr 1fr !important; }
+  .cs-footer-brand { grid-column: 1 / -1 !important; }
+}
+
+/* ---------- Соц-кнопки в подвале ----------
+   :hover в CSS, а не в JS — иначе при клике по Telegram/Instagram (открытие в новой вкладке)
+   и Phone (tel:) фокус уходит из окна, mouseleave не срабатывает и кнопка «залипает» в светлом
+   состоянии. Поверх тёмного фона футера это выглядит как белая плашка. */
+.cs-footer-social { background: rgba(255,255,255,0.10) !important; }
+.cs-footer-social:hover,
+.cs-footer-social:focus-visible {
+  background: var(--pink-500, #D62E83) !important;
+  transform: translateY(-2px) scale(1.05);
+  outline: none;
+}
+.cs-footer-social:active { transform: scale(0.94); }
+
+/* ---------- Телефоны (<= 600px) ---------- */
+@media (max-width: 600px) {
+  .cs-programs-grid { grid-template-columns: 1fr !important; }
+  .cs-care-points { grid-template-columns: 1fr !important; }
+  .cs-footer-grid { grid-template-columns: 1fr !important; }
+}

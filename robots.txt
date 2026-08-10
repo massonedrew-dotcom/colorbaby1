@@ -1,0 +1,41 @@
+# robots.txt — Color Baby House (colorbabyhouse.uz)
+#
+# Важно: CSS, шрифты и скрипты сайта (styles.css, _ds_bundle.js, ui_kits/website/*.jsx)
+# намеренно ОТКРЫТЫ. Google и Яндекс рендерят страницу перед индексацией, и если
+# закрыть эти файлы — робот увидит сломанную вёрстку и понизит сайт.
+#
+# Страницы-дубли (служебные HTML дизайн-системы) закрыты не здесь, а через
+# <meta name="robots" content="noindex"> и заголовок X-Robots-Tag в .htaccess:
+# закрытую в robots.txt страницу робот не может прочитать, а значит и не увидит
+# в ней noindex — она так и останется в индексе.
+
+User-agent: Yandex
+Disallow: /uploads/
+Disallow: /guidelines/
+Disallow: /components/
+Disallow: /*.md$
+Disallow: /*.card.html$
+Disallow: /_ds_manifest.json
+Disallow: /_adherence.oxlintrc.json
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&yclid&_openstat
+Host: https://colorbabyhouse.uz
+
+User-agent: Googlebot
+Disallow: /uploads/
+Disallow: /guidelines/
+Disallow: /components/
+Disallow: /*.md$
+Disallow: /*.card.html$
+Disallow: /_ds_manifest.json
+Disallow: /_adherence.oxlintrc.json
+
+User-agent: *
+Disallow: /uploads/
+Disallow: /guidelines/
+Disallow: /components/
+Disallow: /*.md$
+Disallow: /*.card.html$
+Disallow: /_ds_manifest.json
+Disallow: /_adherence.oxlintrc.json
+
+Sitemap: https://colorbabyhouse.uz/sitemap.xml

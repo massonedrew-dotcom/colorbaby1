@@ -1,0 +1,38 @@
+<!-- @dsCard group="Colors" viewport="700x300" name="Yellow & Gold" subtitle="Жёлтый шарик логотипа и золото рядом с ним. Подсветки, бейджи, акценты." -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--paper); padding: 24px; font-family: var(--font-body); }
+  h4 { font-family: var(--font-body); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--color-text-muted); margin: 0 0 10px; }
+  .scale { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  .scale + h4 { margin-top: 20px; }
+  .sw { border-radius: var(--radius-md); height: 56px; box-shadow: var(--shadow-xs); border: 1px solid rgba(29,43,76,.05); }
+  .name { font-size: 11px; font-weight: 700; color: var(--color-text); margin-top: 7px; }
+  .hex { font-size: 10px; color: var(--color-text-muted); font-weight: 600; }
+  .star { outline: 3px solid var(--ink-900); outline-offset: 2px; }
+</style>
+</head>
+<body>
+  <h4>Yellow — шарик логотипа <span style="color:var(--yellow-600)">·--color-sun</span></h4>
+  <div class="scale">
+    <div><div class="sw" style="background:var(--yellow-50)"></div><div class="name">50</div></div>
+    <div><div class="sw" style="background:var(--yellow-100)"></div><div class="name">100</div></div>
+    <div><div class="sw" style="background:var(--yellow-200)"></div><div class="name">200</div></div>
+    <div><div class="sw" style="background:var(--yellow-300)"></div><div class="name">300</div></div>
+    <div><div class="sw star" style="background:var(--yellow-400)"></div><div class="name">400</div><div class="hex">#FBD130</div></div>
+    <div><div class="sw" style="background:var(--yellow-500)"></div><div class="name">500</div></div>
+  </div>
+  <h4>Gold — слот orange <span style="color:var(--orange-600)">·--color-warning</span></h4>
+  <div class="scale">
+    <div><div class="sw" style="background:var(--orange-50)"></div><div class="name">50</div></div>
+    <div><div class="sw" style="background:var(--orange-100)"></div><div class="name">100</div></div>
+    <div><div class="sw" style="background:var(--orange-200)"></div><div class="name">200</div></div>
+    <div><div class="sw" style="background:var(--orange-300)"></div><div class="name">300</div></div>
+    <div><div class="sw star" style="background:var(--orange-400)"></div><div class="name">400</div><div class="hex">#FBA22B</div></div>
+    <div><div class="sw" style="background:var(--orange-500)"></div><div class="name">500</div></div>
+  </div>
+</body>
+</html>

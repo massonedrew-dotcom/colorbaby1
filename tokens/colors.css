@@ -1,0 +1,200 @@
+/* ============================================================
+   Color Baby House — Color tokens
+   Палитра снята прямо с логотипа: розовая фуксия (кольцо мазков и ладони),
+   бирюза, синий (мальчик и тёмная дуга кольца) и жёлтый (воздушный шарик).
+   Тёплой «солнечной» гаммы прежнего бренда здесь нет: фон холодно-белый,
+   текст — глубокий синий, а не сливовый.
+
+   ВАЖНО про имена. Наборы --orange-*, --purple-*, --mint-* остались, потому
+   что на них ссылаются компоненты и разделы сайта. Но значения перенастроены
+   на брендовые оттенки: purple → синий из логотипа, orange → тёплое золото
+   рядом с жёлтым шариком, mint → бирюзово-зелёный. Так ни один файл не
+   ломается, а на экране остаются только цвета логотипа.
+   ============================================================ */
+:root {
+  /* ---------- Yellow — шарик из логотипа ---------- */
+  --yellow-50:  #FFFBE6;
+  --yellow-100: #FFF4BF;
+  --yellow-200: #FEE98A;
+  --yellow-300: #FDDD57;
+  --yellow-400: #FBD130;  /* логотип: жёлтый шарик */
+  --yellow-500: #E0B300;
+  --yellow-600: #B08A00;
+  --yellow-700: #6E5600;  /* только для текста: жёлтый читается лишь таким тёмным */
+
+  /* ---------- Gold (слот «orange») — тёплый мост к жёлтому ---------- */
+  --orange-50:  #FFF6E8;
+  --orange-100: #FFEACB;
+  --orange-200: #FFD494;
+  --orange-300: #FFBC5C;
+  --orange-400: #FBA22B;
+  --orange-500: #E08608;
+  --orange-600: #B36A00;
+  --orange-700: #8A5200;  /* только для текста и иконок на тинте */
+
+  /* ---------- Pink / фуксия (основной цвет бренда) ---------- */
+  --pink-50:  #FEEDF5;
+  --pink-100: #FCD8E9;
+  --pink-200: #F9B2D2;
+  --pink-300: #F47FB6;
+  --pink-400: #EE4A9B;  /* логотип: кольцо мазков и ладони */
+  --pink-500: #D62E83;
+  --pink-600: #AF2069;
+
+  /* ---------- Blue (слот «purple») — синий из логотипа ---------- */
+  --purple-50:  #EAF1FA;
+  --purple-100: #D0E1F4;
+  --purple-200: #9CC0E8;
+  --purple-300: #5E97D6;
+  --purple-400: #1F6FBE;  /* логотип: мальчик */
+  --purple-500: #10559B;  /* логотип: тёмная дуга кольца */
+  --purple-600: #0B4278;
+
+  /* ---------- Sky / бирюза — светлая дуга кольца ---------- */
+  --sky-50:  #E7F8FB;
+  --sky-100: #C6F0F6;
+  --sky-200: #96E6EF;
+  --sky-300: #6FDDEA;
+  --sky-400: #22BFD1;  /* логотип: бирюзовая дуга */
+  --sky-500: #0E9BB0;
+  --sky-600: #0A7B8C;
+  --sky-700: #086673;  /* только для текста */
+
+  /* ---------- Mint (слот «mint») — бирюзово-зелёный, для «успеха» ---------- */
+  --mint-50:  #E4F8F1;
+  --mint-100: #C2F0E1;
+  --mint-300: #6BDCC0;
+  --mint-400: #1FC39C;
+  --mint-500: #12A583;
+  --mint-600: #0C7D63;
+  --mint-700: #0A6650;  /* только для текста и иконок на тинте */
+
+  /* ---------- Прохладные нейтральные ----------
+     Имена --cream / --sand-* сохранены (на них ссылается вся вёрстка),
+     но оттенки теперь холодные: логотип живёт на белом. */
+  --paper:    #FFFFFF;
+  --cream:    #FFF9FC;   /* фон страницы — белый с розовым дыханием */
+  --sand-50:  #F3FAFC;   /* «утопленные» поверхности — бирюзовый подтон */
+  --sand-100: #E8F5F9;   /* мягкие цветные блоки */
+  --sand-200: #DBEDF3;
+  --border:   #EDE9F1;   /* волосяная линия */
+  --border-strong: #D6DEE8;
+
+  --ink-900: #1D2B4C;    /* основной текст — глубокий синий из логотипа */
+  --ink-700: #37456A;
+  --ink-500: #5E6A89;    /* приглушённый текст */
+  --ink-400: #68728C;    /* мелкие сноски: на белом даёт 4.8:1 (было 3.04 — не читалось) */
+  --ink-300: #B4BCCC;    /* placeholder / disabled */
+
+  --danger:  #FF5A5A;
+  --danger-bg: #FFE6E6;
+
+  /* ============================================================
+     БРЕНДОВАЯ ЧЕТВЁРКА — прямые имена цветов логотипа.
+     Удобно, когда нужен именно «цвет с логотипа», без слотов.
+     ============================================================ */
+  --brand-pink:   var(--pink-400);
+  --brand-cyan:   var(--sky-400);
+  --brand-blue:   var(--purple-500);
+  --brand-yellow: var(--yellow-400);
+
+  /* ============================================================
+     SEMANTIC ALIASES — prefer these in components & layouts
+     ============================================================ */
+  --color-bg:            var(--cream);
+  --color-bg-alt:        var(--sand-50);
+  --color-surface:       var(--paper);
+  --color-surface-sunken:var(--sand-50);
+  --color-surface-tint:  var(--pink-50);
+  --color-border:        var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-text:          var(--ink-900);
+  --color-text-muted:    var(--ink-500);
+  --color-text-subtle:   var(--ink-400);
+  --color-text-inverse:  #FFFFFF;
+  --color-text-on-brand: #FFFFFF;
+
+  --color-primary:       var(--pink-400);
+  --color-primary-hover: var(--pink-500);
+  --color-primary-press: var(--pink-600);
+  --color-primary-soft:  var(--pink-50);
+  /* Фуксия логотипа на белом даёт 3.45:1 — для заливок годится, для текста нет
+     (норма 4.5:1). Поэтому у бренда два оттенка: --color-primary заливает
+     кнопки и плашки, --color-primary-text пишет надгруппы, ссылки и подписи. */
+  --color-primary-text:  var(--pink-600);
+  /* Заливка под белым текстом (кнопки, солидные бейджи). Тоже не 400:
+     белое на #EE4A9B — 3.45:1, на #D62E83 — 4.59:1. Разница на глаз
+     минимальная, а надписи на кнопках перестают «звенеть». */
+  --color-primary-fill:  var(--pink-500);
+
+  /* ---------- Текст на светлых тинтах ----------
+     Каждая пара проверена на своём фоне-«пятидесятке»: 5.7–6.7:1.
+     Брать для этого 400/500 нельзя — они дают 3–4:1 и текст плывёт. */
+  --on-pink-tint:   var(--pink-600);    /* на --pink-50   */
+  --on-yellow-tint: var(--yellow-700);  /* на --yellow-50 */
+  --on-cyan-tint:   var(--sky-700);     /* на --sky-50    */
+  --on-blue-tint:   var(--purple-500);  /* на --purple-50 */
+
+  /* То же для тинтов-100 (кружки с иконками, плашки в расписании).
+     Иконке нужно 3:1, тексту 4.5:1 — эти пары дают 5–6.3:1 и годятся обоим. */
+  --on-pink-100:   var(--pink-600);
+  --on-yellow-100: var(--yellow-700);
+  --on-cyan-100:   var(--sky-700);
+  --on-blue-100:   var(--purple-500);
+  --on-mint-100:   var(--mint-700);
+  --on-gold-100:   var(--orange-700);
+
+  /* Второй цвет бренда — бирюза, а не тёплый оранжевый: так на странице
+     живёт та же пара «фуксия + бирюза», что и в кольце логотипа. */
+  --color-secondary:      var(--sky-400);
+  --color-secondary-hover:var(--sky-500);
+  --color-secondary-soft: var(--sky-50);
+  /* Бирюза яркая: белое на ней 2.2:1. Под белый текст — только тёмная. */
+  --color-secondary-fill: var(--sky-600);
+
+  --color-accent:        var(--purple-400);
+  --color-accent-hover:  var(--purple-500);
+  --color-accent-soft:   var(--purple-50);
+
+  --color-sun:           var(--yellow-400);
+  --color-sun-soft:      var(--yellow-100);
+
+  --color-success:       var(--mint-400);
+  --color-success-fill:  var(--mint-600);
+  --color-success-soft:  var(--mint-50);
+  --color-info:          var(--sky-400);
+  --color-info-soft:     var(--sky-50);
+  --color-warning:       var(--orange-400);
+  --color-warning-soft:  var(--orange-50);
+  --color-danger:        var(--danger);
+  --color-danger-soft:   var(--danger-bg);
+
+  --color-focus:         var(--pink-400);
+
+  /* ---------- Category colors (programmes / classes) ---------- */
+  --cat-english:  var(--sky-400);
+  --cat-dance:    var(--pink-400);
+  --cat-chess:    var(--purple-400);
+  --cat-acting:   var(--orange-400);
+  --cat-robotics: var(--mint-400);
+  --cat-speech:   var(--yellow-500);
+
+  /* ============================================================
+     GRADIENTS
+     --gradient-sun — подпись бренда, ею залит заголовочный текст и
+     основные кнопки. Жёлтого в ней намеренно нет: жёлтый на белом даёт
+     контраст около 1.4:1, и надпись переставала читаться. Жёлтый живёт
+     в --gradient-rainbow — там он декорация, а не текст.
+     ============================================================ */
+  --gradient-sun:   linear-gradient(135deg, var(--pink-400) 0%, var(--pink-500) 30%, var(--purple-400) 70%, var(--sky-500) 100%);
+  --gradient-rainbow: linear-gradient(90deg, var(--pink-400) 0%, var(--yellow-400) 33%, var(--sky-400) 66%, var(--purple-500) 100%);
+  --gradient-warm:  linear-gradient(120deg, var(--pink-300) 0%, var(--pink-500) 100%);
+  /* Под белым текстом (виджет заявки) — от 500 к 600: на pink-300 белое
+     давало 2.45:1 и надпись пропадала. */
+  --gradient-pink:  linear-gradient(135deg, var(--pink-500) 0%, var(--pink-600) 100%);
+  --gradient-pink-soft: linear-gradient(135deg, var(--pink-300) 0%, var(--pink-500) 100%);
+  --gradient-sky:   linear-gradient(135deg, var(--sky-300) 0%, var(--sky-500) 100%);
+  --gradient-sunrise: linear-gradient(180deg, var(--sky-100) 0%, var(--yellow-100) 55%, var(--pink-100) 100%);
+  --gradient-soft-bg: linear-gradient(180deg, var(--cream) 0%, var(--pink-50) 100%);
+}

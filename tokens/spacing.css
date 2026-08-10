@@ -1,0 +1,68 @@
+/* ============================================================
+   Color Baby House — Spacing, radii, shadows, motion
+   ============================================================ */
+:root {
+  /* ---------- Spacing (4px base) ---------- */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* Layout */
+  --container-max: 1200px;
+  --container-pad: clamp(20px, 5vw, 64px);
+  --section-y: clamp(64px, 9vw, 128px); /* @kind spacing */
+
+  /* ---------- Radii (generously rounded for a kids brand) ---------- */
+  --radius-xs:    8px;
+  --radius-sm:    12px;
+  --radius-md:    18px;
+  --radius-lg:    28px;
+  --radius-xl:    40px;
+  --radius-2xl:   56px;
+  --radius-pill:  999px;
+  --radius-circle:50%;
+
+  /* ---------- Shadows (мягкие, с синим подтоном) ---------- */
+  --shadow-xs: 0 1px 2px rgba(29, 43, 76, 0.06);
+  --shadow-sm: 0 4px 14px rgba(29, 43, 76, 0.07);
+  --shadow-md: 0 10px 26px rgba(29, 43, 76, 0.10);
+  --shadow-lg: 0 20px 44px rgba(29, 43, 76, 0.13);
+  --shadow-xl: 0 32px 64px rgba(29, 43, 76, 0.16);
+
+  /* Цветные свечения — под кнопки и «живые» карточки.
+     Оттенки те же, что в логотипе: фуксия, бирюза, жёлтый, синий. */
+  --shadow-pink:   0 14px 30px rgba(238, 74, 155, 0.34);
+  --shadow-orange: 0 14px 30px rgba(34, 191, 209, 0.30);   /* бирюза (слот orange) */
+  --shadow-yellow: 0 14px 30px rgba(251, 209, 48, 0.34);
+  --shadow-purple: 0 14px 30px rgba(31, 111, 190, 0.30);   /* синий (слот purple) */
+
+  /* Focus ring */
+  --ring: 0 0 0 4px rgba(238, 74, 155, 0.28);
+  --ring-info: 0 0 0 4px rgba(34, 191, 209, 0.30);
+
+  /* ---------- Motion ---------- */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1); /* @kind other */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1); /* @kind other */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */ /* playful overshoot */
+  --dur-fast:   140ms; /* @kind other */
+  --dur-base:   220ms; /* @kind other */
+  --dur-slow:   360ms; /* @kind other */
+
+  /* ---------- Z-index ---------- */
+  --z-base: 1; /* @kind other */
+  --z-sticky: 100; /* @kind other */
+  --z-overlay: 1000; /* @kind other */
+  --z-modal: 1100; /* @kind other */
+  --z-toast: 1200; /* @kind other */
+}

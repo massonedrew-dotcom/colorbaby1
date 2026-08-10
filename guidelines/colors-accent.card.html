@@ -1,0 +1,44 @@
+<!-- @dsCard group="Colors" viewport="700x300" name="Accent — Blue, Cyan & Teal" subtitle="Синий и бирюза из кольца логотипа; тил — для «успеха» и категорий." -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--paper); padding: 24px; font-family: var(--font-body); }
+  h4 { font-family: var(--font-body); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--color-text-muted); margin: 0 0 10px; }
+  .scale { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  .scale + h4 { margin-top: 18px; }
+  .sw { border-radius: var(--radius-md); height: 52px; box-shadow: var(--shadow-xs); border: 1px solid rgba(29,43,76,.05); }
+  .name { font-size: 11px; font-weight: 700; color: var(--color-text); margin-top: 7px; }
+  .hex { font-size: 10px; color: var(--color-text-muted); font-weight: 600; }
+  .star { outline: 3px solid var(--ink-900); outline-offset: 2px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+</style>
+</head>
+<body>
+  <h4>Blue — акцент (слот purple) <span style="color:var(--purple-500)">·--color-accent</span></h4>
+  <div class="scale">
+    <div><div class="sw" style="background:var(--purple-50)"></div><div class="name">50</div></div>
+    <div><div class="sw" style="background:var(--purple-100)"></div><div class="name">100</div></div>
+    <div><div class="sw" style="background:var(--purple-200)"></div><div class="name">200</div></div>
+    <div><div class="sw" style="background:var(--purple-300)"></div><div class="name">300</div></div>
+    <div><div class="sw star" style="background:var(--purple-400)"></div><div class="name">400</div><div class="hex">#1F6FBE</div></div>
+    <div><div class="sw" style="background:var(--purple-500)"></div><div class="name">500</div></div>
+  </div>
+  <h4 style="margin-top:20px">Бирюза (--color-secondary) и тил (--color-success)</h4>
+  <div class="two">
+    <div class="mini">
+      <div><div class="sw" style="background:var(--sky-100)"></div><div class="name">sky 100</div></div>
+      <div><div class="sw" style="background:var(--sky-300)"></div><div class="name">sky 300</div></div>
+      <div><div class="sw star" style="background:var(--sky-400)"></div><div class="name">sky 400</div></div>
+    </div>
+    <div class="mini">
+      <div><div class="sw" style="background:var(--mint-100)"></div><div class="name">mint 100</div></div>
+      <div><div class="sw" style="background:var(--mint-300)"></div><div class="name">mint 300</div></div>
+      <div><div class="sw star" style="background:var(--mint-400)"></div><div class="name">mint 400</div></div>
+    </div>
+  </div>
+</body>
+</html>

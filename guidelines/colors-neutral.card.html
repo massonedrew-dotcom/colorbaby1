@@ -1,0 +1,25 @@
+<!-- @dsCard group="Colors" viewport="700x210" name="Cool neutrals" subtitle="Розовато-белый фон, бирюзовые «утопленные» поверхности, синие чернила." -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--paper); padding: 24px; font-family: var(--font-body); }
+  .scale { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .sw { border-radius: var(--radius-md); height: 72px; box-shadow: var(--shadow-xs); border: 1px solid var(--border); }
+  .name { font-size: 11px; font-weight: 700; color: var(--color-text); margin-top: 8px; }
+  .hex { font-size: 10px; color: var(--color-text-muted); font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="scale">
+    <div><div class="sw" style="background:var(--cream)"></div><div class="name">cream ·bg</div><div class="hex">#FFF9FC</div></div>
+    <div><div class="sw" style="background:var(--sand-50)"></div><div class="name">sand-50</div><div class="hex">#F3FAFC</div></div>
+    <div><div class="sw" style="background:var(--sand-100)"></div><div class="name">sand-100</div><div class="hex">#E8F5F9</div></div>
+    <div><div class="sw" style="background:var(--border)"></div><div class="name">border</div><div class="hex">#EDE9F1</div></div>
+    <div><div class="sw" style="background:var(--ink-500)"></div><div class="name">ink-500 ·muted</div><div class="hex" style="color:var(--ink-400)">#6E6680</div></div>
+    <div><div class="sw" style="background:var(--ink-900)"></div><div class="name">ink-900 ·text</div><div class="hex" style="color:var(--ink-400)">#1D2B4C</div></div>
+  </div>
+</body>
+</html>

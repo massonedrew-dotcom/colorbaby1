@@ -1,0 +1,28 @@
+<!-- @dsCard group="Brand" viewport="700x220" name="Фоновые приёмы" subtitle="Радиальное свечение, мягкая заливка и пастельные пятна — фирменные фоны." -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--paper); padding: 22px; font-family: var(--font-body); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .tile { height: 150px; border-radius: var(--radius-lg); position: relative; overflow: hidden; box-shadow: var(--shadow-sm); display:flex; align-items:flex-end; }
+  .lab { font-size: 11px; font-weight: 800; color: var(--ink-900); background: rgba(255,255,255,.78); padding: 5px 10px; border-radius: var(--radius-pill); margin: 10px; backdrop-filter: blur(4px); }
+  .sun { background:
+    radial-gradient(circle at 50% 42%, var(--pink-200) 0%, var(--sky-200) 32%, transparent 62%),
+    var(--cream); }
+  .sunrise { background: var(--gradient-sunrise); }
+  .blob { background: var(--cream); }
+  .blob::before { content:""; position:absolute; width:130px; height:130px; right:-30px; top:-30px; border-radius:50%; background:var(--pink-200); filter: blur(6px); }
+  .blob::after { content:""; position:absolute; width:90px; height:90px; left:-20px; bottom:-20px; border-radius:50%; background:var(--sky-300); filter: blur(6px); }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="tile sun"><span class="lab">Radial glow (hero)</span></div>
+    <div class="tile sunrise"><span class="lab">Brand wash</span></div>
+    <div class="tile blob"><span class="lab">Pastel blobs</span></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!-- @dsCard group="Components" viewport="700x900" name="Core components" subtitle="Buttons, badges, tags, inputs, avatars, cards & feature tiles" -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--color-bg); padding: 28px; font-family: var(--font-body); }
+  .group { margin-bottom: 26px; }
+  .glabel { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .09em; color: var(--color-text-subtle); margin-bottom: 12px; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { Button, IconButton, Badge, Tag, Input, Avatar, Card, FeatureCard } = window.DesignSystem_52b7c1;
+  const Ic = ({n}) => <i data-lucide={n}></i>;
+
+  function Showcase() {
+    return (
+      <div>
+        <div className="group">
+          <div className="glabel">Buttons</div>
+          <div className="row" style={{marginBottom:'12px'}}>
+            <Button variant="sun" iconRight={<Ic n="arrow-right"/>}>Записаться</Button>
+            <Button variant="primary">Первичная</Button>
+            <Button variant="secondary">Вторичная</Button>
+            <Button variant="soft">Мягкая</Button>
+            <Button variant="outline">Контур</Button>
+            <Button variant="ghost">Призрак</Button>
+          </div>
+          <div className="row">
+            <Button size="sm">Small</Button>
+            <Button size="md">Medium</Button>
+            <Button size="lg">Large</Button>
+            <Button disabled>Disabled</Button>
+          </div>
+        </div>
+
+        <div className="group">
+          <div className="glabel">Icon buttons</div>
+          <div className="row">
+            <IconButton icon={<Ic n="send"/>} variant="primary" label="Telegram"/>
+            <IconButton icon={<Ic n="phone"/>} variant="soft" label="Позвонить"/>
+            <IconButton icon={<Ic n="heart"/>} variant="surface" label="Нравится"/>
+            <IconButton icon={<Ic n="chevron-right"/>} variant="ghost" label="Далее"/>
+          </div>
+        </div>
+
+        <div className="group">
+          <div className="glabel">Badges & Tags</div>
+          <div className="row" style={{marginBottom:'12px'}}>
+            <Badge color="success">Есть места</Badge>
+            <Badge color="primary" variant="solid">Новое</Badge>
+            <Badge color="sun">от 1 до 7 лет</Badge>
+            <Badge color="info">5-разовое питание</Badge>
+            <Badge color="accent">Telegram-отчёт</Badge>
+          </div>
+          <div className="row">
+            <Tag dot="var(--cat-english)">Английский</Tag>
+            <Tag dot="var(--cat-dance)" active>Танцы</Tag>
+            <Tag dot="var(--cat-chess)">Шахматы</Tag>
+            <Tag dot="var(--cat-robotics)">Робототехника</Tag>
+          </div>
+        </div>
+
+        <div className="group">
+          <div className="glabel">Input & Avatars</div>
+          <div className="row" style={{alignItems:'flex-end'}}>
+            <Input label="Ваше имя" placeholder="Как вас зовут?" iconLeft={<Ic n="user"/>} style={{flex:1, minWidth:'240px'}}/>
+            <Avatar name="Анна Петрова" color="purple" size="lg"/>
+            <Avatar name="Мария Иванова" color="sky" size="lg" ring/>
+            <Avatar name="Олег" color="orange" size="lg"/>
+          </div>
+        </div>
+
+        <div className="group">
+          <div className="glabel">Feature tiles</div>
+          <div className="grid3">
+            <FeatureCard icon={<Ic n="languages"/>} title="Английский" color="sky">Живые занятия с малых лет.</FeatureCard>
+            <FeatureCard icon={<Ic n="puzzle"/>} title="Развивающие игры" color="pink">Каждый день — открытие.</FeatureCard>
+            <FeatureCard icon={<Ic n="bot"/>} title="Робототехника" color="mint">Первые шаги в технике.</FeatureCard>
+          </div>
+        </div>
+
+        <div className="group" style={{marginBottom:0}}>
+          <div className="glabel">Cards</div>
+          <div className="grid3">
+            <Card tint="pink" hover><b style={{font:'var(--font-h4)'}}>Забота</b><p style={{color:'var(--color-text-muted)',margin:'6px 0 0'}}>Тёплая домашняя атмосфера.</p></Card>
+            <Card tint="sun" hover><b style={{font:'var(--font-h4)'}}>Питание</b><p style={{color:'var(--color-text-muted)',margin:'6px 0 0'}}>5 раз в день, по меню.</p></Card>
+            <Card glow="pink" style={{background:'var(--gradient-warm)'}}><b style={{font:'var(--font-h4)',color:'#fff'}}>Экскурсия</b><p style={{color:'rgba(255,255,255,.9)',margin:'6px 0 0'}}>Приходите в гости!</p></Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Showcase/>);
+  setTimeout(() => window.lucide && window.lucide.createIcons(), 60);
+</script>
+</body>
+</html>

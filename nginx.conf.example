@@ -1,0 +1,94 @@
+# ============================================================================
+#  Color Baby House — то же самое, что в .htaccess, но для nginx.
+#  Нужен, если хостинг в Узбекистане отдаёт сайт через nginx (VPS, Uzinfocom,
+#  Cloud.uz). Вставляется в конфиг сайта, обычно /etc/nginx/sites-available/.
+#  После правки: nginx -t && systemctl reload nginx
+# ============================================================================
+
+# --- http и www уводим на основной адрес одним 301 ---
+server {
+    listen 80;
+    listen [::]:80;
+    server_name colorbabyhouse.uz www.colorbabyhouse.uz;
+    return 301 https://colorbabyhouse.uz$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name www.colorbabyhouse.uz;
+
+    ssl_certificate     /etc/letsencrypt/live/colorbabyhouse.uz/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/colorbabyhouse.uz/privkey.pem;
+
+    return 301 https://colorbabyhouse.uz$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name colorbabyhouse.uz;
+
+    root /var/www/colorbabyhouse;
+    index index.html;
+    charset utf-8;
+
+    ssl_certificate     /etc/letsencrypt/live/colorbabyhouse.uz/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/colorbabyhouse.uz/privkey.pem;
+
+    # --- Главная должна быть одна: /index.html → / ---
+    location = /index.html {
+        return 301 https://colorbabyhouse.uz/;
+    }
+
+    # --- Старые адреса главной (сайт раньше лежал во вложенной папке) ---
+    location = /ui_kits/website/standalone.html { return 301 https://colorbabyhouse.uz/; }
+    location = /ui_kits/website/index.html      { return 301 https://colorbabyhouse.uz/; }
+    location = /ui_kits/website/privacy.html    { return 301 https://colorbabyhouse.uz/privacy.html; }
+
+    # --- Страница 404 с корректным кодом ответа ---
+    error_page 404 /404.html;
+    location = /404.html { internal; }
+
+    # --- Заголовки безопасности ---
+    add_header X-Frame-Options "DENY" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://mc.yandex.ru https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://unpkg.com https://mc.yandex.ru https://www.google-analytics.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-src https://yandex.uz https://yandex.ru https://yandex.com; frame-ancestors 'none'" always;
+
+    # --- Служебные файлы дизайн-системы — мимо поиска ---
+    location ~* \.(card\.html|md|json)$ {
+        add_header X-Robots-Tag "noindex, nofollow" always;
+    }
+
+    # --- Листинг каталогов запрещён ---
+    autoindex off;
+
+    # --- Сжатие ---
+    gzip on;
+    gzip_comp_level 6;
+    gzip_min_length 256;
+    gzip_types text/plain text/css text/xml application/javascript application/json
+               application/xml image/svg+xml font/woff2;
+
+    # --- Кэш статики ---
+    location ~* \.(jpg|jpeg|png|webp|svg|ico|woff2)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+    location ~* \.(css|js)$ {
+        expires 30d;
+        add_header Cache-Control "public";
+    }
+    location ~* \.html$ {
+        expires -1;
+        add_header Cache-Control "no-cache";
+    }
+
+    # --- .jsx должен отдаваться как текст, а не скачиваться файлом ---
+    location ~* \.jsx$ {
+        default_type text/babel;
+    }
+}

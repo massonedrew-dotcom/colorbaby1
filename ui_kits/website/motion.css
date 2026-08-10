@@ -1,0 +1,723 @@
+/* ============================================================
+   Color Baby House — Motion layer
+   Всё движение сайта собрано здесь: появление секций при скролле,
+   вход первого экрана, микроанимации карточек и кнопок,
+   «живые» декоративные элементы.
+
+   Правила именования:
+     .cs-reveal*    — появление при попадании в экран (класс is-visible вешает JS)
+     .cs-stagger    — дети контейнера появляются «волной»
+     .cs-enter*     — вход сразу при загрузке (первый экран)
+     .cs-float*     — бесконечное мягкое покачивание (декор)
+
+   ВАЖНО: в самом низу файла — блок prefers-reduced-motion,
+   он гасит здесь всё. Любую новую анимацию добавляйте и туда.
+   ============================================================ */
+
+:root {
+  --cs-ease-soft:    cubic-bezier(0.22, 1, 0.36, 1);
+  --cs-ease-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --cs-dur-reveal:   700ms;
+  --cs-stagger-step: 70ms;
+}
+
+/* ============================================================
+   1. Появление секций при скролле
+   ============================================================ */
+
+.cs-reveal,
+.cs-reveal-left,
+.cs-reveal-right,
+.cs-reveal-zoom {
+  opacity: 0;
+  transition:
+    opacity   var(--cs-dur-reveal) var(--cs-ease-soft),
+    transform var(--cs-dur-reveal) var(--cs-ease-soft);
+  transition-delay: var(--cs-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.cs-reveal       { transform: translate3d(0, 28px, 0); }
+.cs-reveal-left  { transform: translate3d(-38px, 0, 0); }
+.cs-reveal-right { transform: translate3d(38px, 0, 0); }
+.cs-reveal-zoom  { transform: scale(0.94); }
+
+.cs-reveal.is-visible,
+.cs-reveal-left.is-visible,
+.cs-reveal-right.is-visible,
+.cs-reveal-zoom.is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* ---------- Волна по детям контейнера ----------
+   Через animation (а не transition), чтобы новые элементы — например,
+   карточки занятий после смены фильтра — тоже появлялись анимированно.
+
+   fill-mode именно `backwards`, а не `both`: при `both` конечный кадр
+   (transform: none) продолжает действовать после анимации и с более высоким
+   приоритетом, чем обычные правила, — и hover-подъём карточек перестаёт работать.
+   С `backwards` кадры держатся только до конца анимации. */
+.cs-stagger > * { opacity: 0; }
+.cs-stagger.is-visible > * {
+  opacity: 1;
+  animation: cs-enter-up 620ms var(--cs-ease-soft) backwards;
+}
+.cs-stagger.is-visible > *:nth-child(1)  { animation-delay: calc(var(--cs-stagger-step) * 1); }
+.cs-stagger.is-visible > *:nth-child(2)  { animation-delay: calc(var(--cs-stagger-step) * 2); }
+.cs-stagger.is-visible > *:nth-child(3)  { animation-delay: calc(var(--cs-stagger-step) * 3); }
+.cs-stagger.is-visible > *:nth-child(4)  { animation-delay: calc(var(--cs-stagger-step) * 4); }
+.cs-stagger.is-visible > *:nth-child(5)  { animation-delay: calc(var(--cs-stagger-step) * 5); }
+.cs-stagger.is-visible > *:nth-child(6)  { animation-delay: calc(var(--cs-stagger-step) * 6); }
+.cs-stagger.is-visible > *:nth-child(7)  { animation-delay: calc(var(--cs-stagger-step) * 7); }
+.cs-stagger.is-visible > *:nth-child(8)  { animation-delay: calc(var(--cs-stagger-step) * 8); }
+.cs-stagger.is-visible > *:nth-child(9)  { animation-delay: calc(var(--cs-stagger-step) * 9); }
+.cs-stagger.is-visible > *:nth-child(n+10) { animation-delay: calc(var(--cs-stagger-step) * 10); }
+
+@keyframes cs-enter-up {
+  from { opacity: 0; transform: translate3d(0, 24px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   2. Вход первого экрана (без ожидания скролла)
+   ============================================================ */
+
+.cs-enter > * { animation: cs-enter-up 780ms var(--cs-ease-soft) backwards; }
+.cs-enter > *:nth-child(1) { animation-delay:  60ms; }
+.cs-enter > *:nth-child(2) { animation-delay: 150ms; }
+.cs-enter > *:nth-child(3) { animation-delay: 240ms; }
+.cs-enter > *:nth-child(4) { animation-delay: 330ms; }
+.cs-enter > *:nth-child(5) { animation-delay: 420ms; }
+.cs-enter > *:nth-child(n+6) { animation-delay: 500ms; }
+
+.cs-enter-photo { animation: cs-enter-photo 950ms 200ms var(--cs-ease-soft) backwards; }
+@keyframes cs-enter-photo {
+  from { opacity: 0; transform: translate3d(0, 36px, 0) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Карточка-«наклейка» поверх фото — выскакивает последней, с пружинкой */
+.cs-enter-pop { animation: cs-enter-pop 620ms 900ms var(--cs-ease-bounce) backwards; }
+@keyframes cs-enter-pop {
+  from { opacity: 0; transform: translate3d(0, 14px, 0) scale(0.82); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   3. Живой декор: покачивание, парение, вращение солнца
+   ============================================================ */
+
+@keyframes cs-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -14px, 0); }
+}
+.cs-float      { animation: cs-float 6s   ease-in-out infinite; }
+.cs-float-slow { animation: cs-float 9.5s ease-in-out infinite; }
+.cs-float-lag  { animation-delay: -3.2s; }
+
+/* Сердечко у счётчика «200+ малышей» — тихое биение */
+@keyframes cs-heartbeat {
+  0%, 82%, 100% { transform: scale(1); }
+  88%           { transform: scale(1.14); }
+  94%           { transform: scale(1.06); }
+}
+.cs-heartbeat { animation: cs-heartbeat 4s ease-in-out infinite 1.6s; }
+
+/* Знак-кольцо: медленное вращение, при наведении на бренд — разгон.
+   В шапке знак мелкий, ему хватает 60s. Крупный знак в баннере крутится
+   заметно живее — на нём вращение и читается как анимация. */
+.cs-sun-spin {
+  animation: cs-spin 60s linear infinite;
+  transform-origin: 50% 50%;
+}
+.cs-banner-mark.cs-sun-spin { animation-duration: 26s; }
+.cs-banner-mark.cs-sun-spin:hover { animation-duration: 4s; }
+.cs-brand:hover .cs-sun-spin { animation-duration: 4s; }
+@keyframes cs-spin { to { transform: rotate(360deg); } }
+
+/* Параллакс: JS пишет --cs-py, CSS двигает элемент */
+.cs-parallax {
+  transform: translate3d(0, var(--cs-py, 0px), 0);
+  will-change: transform;
+}
+
+/* Градиентный текст бренда — мягкое переливание */
+.cs-gradient-text {
+  background-size: 220% 100%;
+  animation: cs-shimmer 8s ease-in-out infinite;
+}
+@keyframes cs-shimmer {
+  0%, 100% { background-position:   0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* ============================================================
+   4. Карточки: подъём при наведении + зум фотографии
+   ============================================================ */
+
+.cs-card {
+  transition:
+    transform  var(--dur-base, 220ms) var(--cs-ease-soft),
+    box-shadow var(--dur-base, 220ms) var(--cs-ease-soft);
+}
+.cs-card:hover,
+.cs-card:focus-within {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+/* Фото внутри карточки слегка приближается — карточка обрезает overflow */
+.cs-card img { transition: transform 700ms var(--cs-ease-soft); }
+.cs-card:hover img { transform: scale(1.07); }
+
+/* «Популярный» тариф изначально приподнят — и поднимается ещё выше при наведении */
+.cs-card-featured { transform: translateY(-6px); }
+.cs-card-featured:hover,
+.cs-card-featured:focus-within { transform: translateY(-14px); }
+
+/* Баннер «Добро пожаловать» теперь собран вёрсткой (Banner.jsx):
+   зум фотографии не нужен, знак и так плавает через .cs-float-slow. */
+
+/* То же поведение, но навешенное на контейнер — для сеток, дети которых
+   собираются компонентами дизайн-системы и не принимают className. */
+.cs-cards > * {
+  transition:
+    transform  var(--dur-base, 220ms) var(--cs-ease-soft),
+    box-shadow var(--dur-base, 220ms) var(--cs-ease-soft);
+}
+.cs-cards > *:hover,
+.cs-cards > *:focus-within {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Иконка-стикер в карточке без фото */
+.cs-card .cs-card-icon { transition: transform 420ms var(--cs-ease-bounce); }
+.cs-card:hover .cs-card-icon { transform: rotate(-8deg) scale(1.1); }
+
+/* Строки распорядка дня и подобные плитки — лёгкий сдвиг вбок */
+.cs-row {
+  transition:
+    transform  var(--dur-base, 220ms) var(--cs-ease-soft),
+    box-shadow var(--dur-base, 220ms) var(--cs-ease-soft),
+    border-color var(--dur-base, 220ms) var(--cs-ease-soft);
+}
+.cs-row:hover {
+  transform: translateX(6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--pink-200, var(--color-border));
+}
+.cs-row .cs-row-icon { transition: transform 420ms var(--cs-ease-bounce); }
+.cs-row:hover .cs-row-icon { transform: scale(1.12) rotate(-6deg); }
+
+/* ============================================================
+   5. Кнопки: подъём, нажатие, блик
+   ============================================================ */
+
+.cs-cta button {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform  var(--dur-base, 220ms) var(--cs-ease-bounce),
+    box-shadow var(--dur-base, 220ms) var(--cs-ease-out, ease);
+}
+.cs-cta button:hover  { transform: translateY(-3px); }
+.cs-cta button:active { transform: translateY(0) scale(0.97); }
+
+/* Блик пробегает по кнопке при наведении */
+.cs-cta button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,0.45) 50%, transparent 62%);
+  transform: translateX(-130%);
+  transition: transform 780ms var(--cs-ease-soft);
+  pointer-events: none;
+}
+.cs-cta button:hover::after { transform: translateX(130%); }
+
+/* ============================================================
+   6. Шапка: сжимается и подсвечивается при прокрутке
+   ============================================================ */
+
+.cs-header {
+  transition: background 320ms var(--cs-ease-soft), box-shadow 320ms var(--cs-ease-soft);
+}
+.cs-header.is-stuck {
+  background: rgba(255, 228, 239, 0.94);
+  box-shadow: 0 6px 26px rgba(255, 77, 151, 0.13);
+}
+.cs-header-inner { transition: padding 320ms var(--cs-ease-soft); }
+.cs-header.is-stuck .cs-header-inner { padding-top: 6px; padding-bottom: 6px; }
+/* Бренд слегка уменьшается (масштабируем ссылку целиком — на самом солнце
+   уже висит анимация вращения, её transform перебил бы наш). */
+.cs-brand {
+  transform-origin: left center;
+  transition: transform 320ms var(--cs-ease-soft);
+}
+.cs-header.is-stuck .cs-brand { transform: scale(0.88); }
+
+/* Подчёркивание пунктов меню */
+.cs-nav a { position: relative; }
+.cs-nav a::after {
+  content: '';
+  position: absolute;
+  left: 18px; right: 18px; bottom: 5px;
+  height: 2px; border-radius: 2px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transition: transform 280ms var(--cs-ease-soft);
+}
+.cs-nav a:hover::after,
+.cs-nav a:focus-visible::after { transform: scaleX(1); }
+
+/* Кнопки в шапке стоят неподвижно.
+   Подъём при наведении зашит в сам компонент Button дизайн-системы: он
+   на onMouseEnter пишет инлайном transform: translateY(-2px). Инлайн-стиль
+   бьёт любое обычное правило, поэтому здесь нужен !important. Рядом с
+   иконкой Telegram этот сдвиг читался как «кнопка магнитится».
+   Отклик оставляем тенью — её дизайн-система тоже ставит инлайном. */
+.cs-header button { transform: none !important; }
+.cs-header .cs-header-cta button:hover {
+  box-shadow: 0 8px 22px rgba(255, 77, 151, 0.42) !important;
+}
+
+/* Индикатор прочитанного — тонкая полоска поверх страницы */
+.cs-progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  z-index: 300;
+  background: var(--gradient-sun, var(--color-primary));
+  transform: scaleX(var(--cs-progress, 0));
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+/* Мобильное меню: выезжает, пункты — волной */
+.cs-mobile-nav.cs-mobile-nav-open { animation: cs-drop 300ms var(--cs-ease-soft) backwards; }
+@keyframes cs-drop {
+  from { opacity: 0; transform: translate3d(0, -12px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+.cs-mobile-nav.cs-mobile-nav-open > * { animation: cs-enter-up 380ms var(--cs-ease-soft) backwards; }
+.cs-mobile-nav.cs-mobile-nav-open > *:nth-child(1) { animation-delay:  40ms; }
+.cs-mobile-nav.cs-mobile-nav-open > *:nth-child(2) { animation-delay:  80ms; }
+.cs-mobile-nav.cs-mobile-nav-open > *:nth-child(3) { animation-delay: 120ms; }
+.cs-mobile-nav.cs-mobile-nav-open > *:nth-child(4) { animation-delay: 160ms; }
+.cs-mobile-nav.cs-mobile-nav-open > *:nth-child(5) { animation-delay: 200ms; }
+.cs-mobile-nav.cs-mobile-nav-open > *:nth-child(n+6) { animation-delay: 240ms; }
+
+/* ============================================================
+   7. Плавающая кнопка заявки: мягкая пульсация раз в несколько секунд
+   ============================================================ */
+
+.cs-qa-pill { position: relative; }
+.cs-qa-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  animation: cs-ring 3.6s ease-out infinite 2s;
+  pointer-events: none;
+}
+@keyframes cs-ring {
+  0%        { box-shadow: 0 0 0 0    rgba(255, 77, 151, 0.50); }
+  70%, 100% { box-shadow: 0 0 0 20px rgba(255, 77, 151, 0);    }
+}
+.cs-qa-pill .cs-qa-spark { transition: transform 420ms var(--cs-ease-bounce); }
+.cs-qa-pill:hover .cs-qa-spark { transform: rotate(18deg) scale(1.12); }
+
+/* ============================================================
+   8. Живой фон всего сайта
+   Лежит под контентом (z-index: -1), поэтому секции не должны иметь
+   непрозрачной заливки — цветную подложку они бы просто закрыли.
+   Анимируется только transform: слой с blur() растрируется один раз,
+   и его сдвиг остаётся дешёвым для композитора.
+   ============================================================ */
+
+.cs-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cs-backdrop-blob {
+  position: absolute;
+  left: var(--x); top: var(--y);
+  width: var(--s); height: var(--s);
+  margin: calc(var(--s) / -2);              /* центрируем пятно на заданной точке */
+  border-radius: 50%;
+  background: var(--c);
+  filter: blur(85px);
+  /* На белом фоне пятна заметнее, чем были на розовом, — приглушаем */
+  opacity: 0.28;
+  animation: cs-drift var(--t, 40s) ease-in-out var(--d, 0s) infinite alternate;
+}
+@keyframes cs-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(var(--dx, 70px), var(--dy, -60px), 0) scale(1.2); }
+}
+
+/* Мелкий горошек поверх пятен — чтобы фон не выглядел пустой заливкой */
+.cs-backdrop-dots {
+  position: absolute;
+  inset: -10%;
+  /* Точки были белыми под розовый фон — на белом их не видно.
+     Теперь еле заметная бирюза. */
+  background-image: radial-gradient(rgba(34, 191, 209, 0.35) 1.5px, transparent 1.6px);
+  background-size: 28px 28px;
+  opacity: 0.35;
+  animation: cs-dots-pan 70s linear infinite;
+}
+@keyframes cs-dots-pan {
+  to { transform: translate3d(28px, 28px, 0); }
+}
+
+/* ============================================================
+   9. Садиковая сцена на фоне: солнце, облака, шарики, звёздочки
+   Живёт внутри .cs-backdrop, то есть видна на всём сайте, а не только
+   на первом экране.
+   ============================================================ */
+
+/* Солнце: неподвижное ядро + вращающийся венец лучей */
+.cs-sun-core,
+.cs-sun-rays {
+  position: absolute;
+  right: -90px; top: -90px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+}
+.cs-sun-core {
+  background: radial-gradient(circle, #FDDD57 0%, #FBD130 62%, transparent 68%);
+  opacity: 0.34;
+}
+/* Венец — не жёлтые лучи солнца, а кольцо разноцветных мазков, как в
+   логотипе Color Baby House: фуксия, жёлтый, бирюза, синий по кругу. */
+.cs-sun-rays {
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(238, 74, 155, 0.50) 0deg 6deg,
+    transparent 6deg 20deg,
+    rgba(251, 209, 48, 0.50) 20deg 26deg,
+    transparent 26deg 40deg,
+    rgba(34, 191, 209, 0.50) 40deg 46deg,
+    transparent 46deg 60deg,
+    rgba(16, 85, 155, 0.45) 60deg 66deg,
+    transparent 66deg 80deg
+  );
+  /* вырезаем середину, чтобы лучи шли от края ядра, а не из точки */
+  -webkit-mask: radial-gradient(circle, transparent 33%, #000 35%);
+          mask: radial-gradient(circle, transparent 33%, #000 35%);
+  animation: cs-spin 30s linear infinite;
+  opacity: 0.6;
+}
+
+/* Облака: плывут слева направо через весь экран.
+   Форма — три круга: сам блок и два псевдоэлемента. */
+.cs-cloud {
+  position: absolute;
+  top: var(--y, 20%);
+  left: 0;
+  width: var(--s, 140px);
+  height: calc(var(--s, 140px) * 0.42);
+  background: #fff;
+  border-radius: 999px;
+  opacity: var(--o, 0.5);
+  animation: cs-cloud-drift var(--t, 70s) linear var(--d, 0s) infinite;
+}
+.cs-cloud::before,
+.cs-cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+.cs-cloud::before {
+  width: 52%; height: 108%;
+  left: 14%; bottom: 42%;
+}
+.cs-cloud::after {
+  width: 38%; height: 82%;
+  right: 16%; bottom: 46%;
+}
+@keyframes cs-cloud-drift {
+  from { transform: translate3d(calc(-1 * var(--s, 140px) - 40px), 0, 0); }
+  to   { transform: translate3d(100vw, 0, 0); }
+}
+
+/* Шарики: поднимаются со дна экрана и уходят за верхний край.
+   --c цвет, --t длительность, --d задержка, --x горизонтальный снос. */
+.cs-balloon {
+  position: absolute;
+  bottom: -130px;
+  width: 40px; height: 50px;
+  background: var(--c, var(--pink-300, #F47FB6));
+  border-radius: 50% 50% 46% 46% / 55% 55% 45% 45%;
+  opacity: 0;
+  animation: cs-balloon-up var(--t, 18s) linear var(--d, 0s) infinite;
+}
+.cs-balloon::before {                       /* блик */
+  content: '';
+  position: absolute;
+  left: 9px; top: 9px;
+  width: 9px; height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+}
+.cs-balloon::after {                        /* верёвочка */
+  content: '';
+  position: absolute;
+  left: 50%; top: 100%;
+  width: 1.5px; height: 32px;
+  background: rgba(29, 43, 76, 0.16);
+  transform: translateX(-50%);
+}
+/* Путь считается от высоты окна: слой фиксированный, шарик должен пройти
+   весь экран целиком, а не заранее заданные 880px. */
+@keyframes cs-balloon-up {
+  0%   { transform: translate3d(0, 0, 0) rotate(-5deg);                              opacity: 0;    }
+  8%   {                                                                             opacity: 0.55; }
+  88%  {                                                                             opacity: 0.45; }
+  100% { transform: translate3d(var(--x, 30px), calc(-100vh - 200px), 0) rotate(6deg); opacity: 0;  }
+}
+
+/* Искры-звёздочки — мерцают вразнобой */
+.cs-sparkle {
+  position: absolute;
+  width: 16px; height: 16px;
+  background: var(--yellow-300, #FDDD57);
+  clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
+  opacity: 0;
+  animation: cs-twinkle 3.4s ease-in-out var(--d, 0s) infinite;
+}
+@keyframes cs-twinkle {
+  0%, 100% { opacity: 0;    transform: scale(0.4) rotate(0deg);   }
+  50%      { opacity: 0.95; transform: scale(1)   rotate(100deg); }
+}
+
+/* ============================================================
+   9. Заголовок первого экрана — слова взлетают по очереди
+   ============================================================ */
+
+/* Блок целиком не анимируем: иначе движение слов смешается с общим въездом */
+.cs-enter > .cs-headline { animation: none; }
+
+.cs-headline .cs-word {
+  display: inline-block;
+  animation: cs-word-rise 820ms var(--cs-ease-bounce) backwards;
+  animation-delay: calc(var(--i, 0) * 90ms + 180ms);
+}
+@keyframes cs-word-rise {
+  from { opacity: 0; transform: translate3d(0, 46px, 0) rotate(7deg); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   10. Бегущая строка занятий
+   ============================================================ */
+
+.cs-marquee {
+  display: flex;
+  overflow: hidden;
+  background: var(--gradient-sun, var(--color-primary));
+  padding: 15px 0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -1px 0 rgba(0,0,0,0.06);
+}
+/* Дорожка — две одинаковые копии подряд: сдвиг ровно на половину даёт бесшовный цикл */
+.cs-marquee-track {
+  display: flex;
+  flex: none;
+  animation: cs-marquee 38s linear infinite;
+}
+.cs-marquee:hover .cs-marquee-track { animation-play-state: paused; }
+@keyframes cs-marquee {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+.cs-marquee-row { display: flex; flex: none; }
+.cs-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.10);
+}
+.cs-marquee-item::before {
+  content: '★';
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ============================================================
+   11. Карточки: 3D-наклон за курсором + блик
+   (--cs-rx/--cs-ry/--cs-mx/--cs-my пишет motion.js)
+   ============================================================ */
+
+.cs-card[data-cs-tilt]:hover,
+.cs-card[data-cs-tilt]:focus-within {
+  transform:
+    perspective(900px)
+    rotateX(var(--cs-rx, 0deg))
+    rotateY(var(--cs-ry, 0deg))
+    translateY(-10px)
+    scale(1.02);
+  transition-duration: 140ms;                 /* быстрее, чтобы наклон успевал за курсором */
+}
+
+.cs-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 2;                                 /* поверх фото и текста карточки */
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    340px circle at var(--cs-mx, 50%) var(--cs-my, 50%),
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0) 62%
+  );
+  transition: opacity 280ms var(--cs-ease-soft);
+}
+.cs-card[data-cs-tilt]:hover .cs-glare { opacity: 1; }
+
+/* ============================================================
+   12. Магнитные кнопки (смещение пишет motion.js)
+   ============================================================ */
+
+[data-cs-magnet] {
+  display: inline-block;
+  transform: translate3d(var(--cs-mgx, 0px), var(--cs-mgy, 0px), 0);
+  transition: transform 300ms var(--cs-ease-soft);
+}
+
+/* ============================================================
+   13. Конфетти (элементы создаёт motion.js)
+   ============================================================ */
+
+.cs-confetti-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cs-confetti-piece {
+  position: absolute;
+  width: 10px; height: 14px;
+  border-radius: 2px;
+  will-change: transform, opacity;
+}
+
+/* ============================================================
+   14. Печать: ничего не анимируем и ничего не прячем
+   (до появления элементы имеют opacity: 0 — иначе печать выйдет пустой)
+   ============================================================ */
+
+@media print {
+  .cs-reveal,
+  .cs-reveal-left,
+  .cs-reveal-right,
+  .cs-reveal-zoom,
+  .cs-stagger > *,
+  .cs-enter > *,
+  .cs-enter-photo,
+  .cs-enter-pop {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .cs-progress,
+  .cs-backdrop,
+  .cs-marquee { display: none; }
+}
+
+/* ============================================================
+   15. Уважаем системную настройку «меньше движения»
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-reveal,
+  .cs-reveal-left,
+  .cs-reveal-right,
+  .cs-reveal-zoom,
+  .cs-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .cs-stagger.is-visible > *,
+  .cs-enter > *,
+  .cs-enter-photo,
+  .cs-enter-pop,
+  .cs-float,
+  .cs-float-slow,
+  .cs-heartbeat,
+  .cs-sun-spin,
+  .cs-gradient-text,
+  .cs-mobile-nav.cs-mobile-nav-open,
+  .cs-mobile-nav.cs-mobile-nav-open > *,
+  .cs-qa-pill::before {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .cs-parallax { transform: none !important; }
+
+  /* Бегущая строка держится только на движении — без него убираем совсем */
+  .cs-marquee { display: none !important; }
+
+  /* Летящие элементы фона без анимации застыли бы кучей у нижнего края —
+     прячем их, а цветную подложку и солнце оставляем неподвижными. */
+  .cs-balloon,
+  .cs-cloud,
+  .cs-sparkle { display: none !important; }
+
+  .cs-backdrop-blob,
+  .cs-backdrop-dots,
+  .cs-sun-rays { animation: none !important; }
+
+  .cs-headline .cs-word,
+  .cs-marquee-track {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .cs-glare { display: none; }
+  .cs-card[data-cs-tilt]:hover,
+  .cs-card[data-cs-tilt]:focus-within { transform: none !important; }
+  [data-cs-magnet] { transform: none !important; transition: none !important; }
+
+  .cs-card,
+  .cs-card img,
+  .cs-cards > *,
+  .cs-banner img,
+  .cs-row,
+  .cs-cta button,
+  .cs-header-inner,
+  .cs-brand,
+  .cs-nav a::after {
+    transition: none !important;
+  }
+  .cs-card:hover,
+  .cs-card:hover img,
+  .cs-cards > *:hover,
+  .cs-banner:hover img,
+  .cs-row:hover,
+  .cs-cta button:hover,
+  .cs-card:hover .cs-card-icon,
+  .cs-row:hover .cs-row-icon { transform: none !important; }
+
+  .cs-cta button::after { display: none; }
+}

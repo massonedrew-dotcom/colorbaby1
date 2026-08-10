@@ -1,0 +1,27 @@
+<!-- @dsCard group="Colors" viewport="700x180" name="Primary — Pink" subtitle="Signature interactive colour. Buttons, links, active states." -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--paper); padding: 24px; font-family: var(--font-body); }
+  .scale { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+  .sw { border-radius: var(--radius-md); height: 64px; box-shadow: var(--shadow-xs); border: 1px solid rgba(29,43,76,.05); }
+  .name { font-size: 11px; font-weight: 700; color: var(--color-text); margin-top: 8px; }
+  .hex { font-size: 11px; color: var(--color-text-muted); font-weight: 600; }
+  .star { outline: 3px solid var(--ink-900); outline-offset: 2px; }
+</style>
+</head>
+<body>
+  <div class="scale">
+    <div><div class="sw" style="background:var(--pink-50)"></div><div class="name">50</div><div class="hex">#FEEDF5</div></div>
+    <div><div class="sw" style="background:var(--pink-100)"></div><div class="name">100</div><div class="hex">#FCD8E9</div></div>
+    <div><div class="sw" style="background:var(--pink-200)"></div><div class="name">200</div><div class="hex">#F9B2D2</div></div>
+    <div><div class="sw" style="background:var(--pink-300)"></div><div class="name">300</div><div class="hex">#F47FB6</div></div>
+    <div><div class="sw star" style="background:var(--pink-400)"></div><div class="name">400 ·primary</div><div class="hex">#EE4A9B</div></div>
+    <div><div class="sw" style="background:var(--pink-500)"></div><div class="name">500 ·hover</div><div class="hex">#D62E83</div></div>
+    <div><div class="sw" style="background:var(--pink-600)"></div><div class="name">600 ·press</div><div class="hex">#AF2069</div></div>
+  </div>
+</body>
+</html>
