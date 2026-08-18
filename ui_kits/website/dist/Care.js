@@ -125,8 +125,8 @@ function Care() {
       height: 46,
       flex: 'none',
       borderRadius: '50%',
-      background: 'var(--plate-soft, #FFF1B8)',
-      color: 'var(--el-blue, #10559B)',
+      background: 'var(--pink-100)',
+      color: 'var(--pink-500)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'

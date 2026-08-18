@@ -145,7 +145,6 @@ function Badge({
   const c = palette[color] || palette.primary;
   const isSolid = variant === 'solid';
   return /*#__PURE__*/React.createElement("span", _extends({
-    className: 'cs-plate cs-plate-' + color + (isSolid ? ' cs-plate-solid' : ' cs-plate-soft'),
     style: {
       display: 'inline-flex',
       alignItems: 'center',
@@ -738,7 +737,6 @@ function Tag({
   return /*#__PURE__*/React.createElement("span", _extends({
     onClick: onClick,
     role: clickable ? 'button' : undefined,
-    className: 'cs-tag' + (active ? ' cs-tag-active' : ''),
     style: {
       display: 'inline-flex',
       alignItems: 'center',

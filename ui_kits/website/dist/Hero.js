@@ -174,7 +174,7 @@ function Hero({
         height: 44,
         borderRadius: '50%',
         background: 'var(--mint-100)',
-        color: 'var(--on-mint-100)',
+        color: 'var(--mint-500)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'

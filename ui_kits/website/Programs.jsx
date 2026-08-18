@@ -22,10 +22,6 @@ function Programs() {
     { t: 'Танцы', d: 'Координация, чувство ритма и пластика.', i: 'music', c: 'pink', g: 'Движение', img: 'assets/photos/dance.jpg', pos: 'center 55%', age: 'от 3 лет', freq: '2 раза в неделю', cost: 'included' },
     { t: 'Тхэквондо', d: 'Дисциплина, сила и уверенность в себе.', i: 'swords', c: 'sky', g: 'Движение', img: 'assets/photos/taekwondo.jpg', pos: 'center 38%' },
     { t: 'Гимнастика', d: 'Здоровье, гибкость и координация.', i: 'activity', c: 'mint', g: 'Движение', img: 'assets/photos/gymnastics.jpg', pos: 'center 52%', age: 'от 2 лет', cost: 'included' },
-    /* ЛФК — лечебная физкультура. Фото пока нет, поэтому карточка рисуется
-       плиткой с иконкой: как только появится assets/photos/lfk.jpg, добавьте
-       сюда img и pos (и размеры в PHOTO_SIZES, Common.jsx). */
-    { t: 'ЛФК', d: 'Лечебная физкультура: укрепляем мышцы и опорно-двигательный аппарат, формируем правильную осанку — в игровой и комфортной форме.', i: 'heart-pulse', c: 'purple', g: 'Движение', age: 'от 2 лет', freq: '2 раза в неделю', cost: 'included' },
     { t: 'Массаж', d: 'Оздоровительный курс для укрепления здоровья.', i: 'heart-handshake', c: 'purple', g: 'Движение', img: 'assets/photos/massage.jpg', pos: 'center 50%', age: 'от 1 года', cost: 'included' },
     { t: 'Актёрское мастерство', d: 'Сцена, эмоции и уверенность в себе.', i: 'drama', c: 'orange', g: 'Творчество', img: 'assets/photos/acting.jpg', pos: 'center 40%' },
     { t: 'Рисование', d: 'Краски, фантазия и мелкая моторика.', i: 'palette', c: 'sun', g: 'Творчество', img: 'assets/photos/drawing.jpg', pos: 'center 35%' },

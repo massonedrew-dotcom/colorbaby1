@@ -60,7 +60,7 @@ function Enroll() {
                 <Ic n="phone" size={18} color="var(--color-primary)" /> +998 90 176 69 99
               </a>
               <a href={'https://t.me/' + CFG.TELEGRAM} target="_blank" rel="noopener noreferrer" onClick={() => goal('click_telegram')} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, color: 'var(--ink-700)', textDecoration: 'none' }}>
-                <Ic n="send" size={18} color="var(--el-blue, #10559B)" /> @{CFG.TELEGRAM}
+                <Ic n="send" size={18} color="var(--sky-500)" /> @{CFG.TELEGRAM}
               </a>
             </div>
           </div>
@@ -71,7 +71,7 @@ function Enroll() {
           }}>
             {sent ? (
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '14px', padding: '24px 0' }}>
-                <span style={{ width: 72, height: 72, borderRadius: '50%', background: 'var(--mint-100)', color: 'var(--on-mint-100)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ width: 72, height: 72, borderRadius: '50%', background: 'var(--mint-100)', color: 'var(--mint-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Ic n="check" size={38} />
                 </span>
                 <h3 style={{ font: 'var(--font-h3)', fontSize: '26px', margin: 0 }}>Спасибо{name ? `, ${name}` : ''}! 😊</h3>

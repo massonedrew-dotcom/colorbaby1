@@ -23,8 +23,6 @@ export function Tag({
     <span
       onClick={onClick}
       role={clickable ? 'button' : undefined}
-      /* cs-tag — крючок для темы (ui_kits/website/theme.css) */
-      className={'cs-tag' + (active ? ' cs-tag-active' : '')}
       style={{
         display: 'inline-flex', alignItems: 'center', gap: '8px',
         fontFamily: 'var(--font-body)', fontWeight: 700,

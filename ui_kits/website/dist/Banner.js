@@ -6,7 +6,20 @@ function Banner() {
     goal,
     CFG
   } = window;
-  const activities = ['Английский язык', 'ЛФК', 'Танцы', 'Тхэквондо', 'Актёрское мастерство', 'Рисование', 'Шахматы', 'Логопед-дефектолог', 'Массаж', 'Мастер-классы', 'Развивающие игры', 'Робототехника'];
+  const activities = ['Английский язык', 'Танцы', 'Тхэквондо', 'Актёрское мастерство', 'Рисование', 'Шахматы', 'Логопед-дефектолог', 'Массаж', 'Мастер-классы', 'Развивающие игры', 'Робототехника'];
+  const chips = [{
+    bg: 'var(--pink-50)',
+    fg: 'var(--on-pink-tint)'
+  }, {
+    bg: 'var(--yellow-50)',
+    fg: 'var(--on-yellow-tint)'
+  }, {
+    bg: 'var(--sky-50)',
+    fg: 'var(--on-cyan-tint)'
+  }, {
+    bg: 'var(--purple-50)',
+    fg: 'var(--on-blue-tint)'
+  }];
   return React.createElement("section", {
     "aria-label": "\u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C",
     className: "cs-banner",
@@ -84,17 +97,21 @@ function Banner() {
       justifyContent: 'center',
       gap: '8px'
     }
-  }, activities.map(a => React.createElement("span", {
-    key: a,
-    className: "cs-chip",
-    style: {
-      borderRadius: 'var(--radius-pill)',
-      padding: '6px 13px',
-      fontSize: '14px',
-      fontWeight: 800,
-      whiteSpace: 'nowrap'
-    }
-  }, a))), React.createElement("div", {
+  }, activities.map((a, i) => {
+    const c = chips[i % chips.length];
+    return React.createElement("span", {
+      key: a,
+      style: {
+        background: c.bg,
+        color: c.fg,
+        borderRadius: 'var(--radius-pill)',
+        padding: '6px 13px',
+        fontSize: '14px',
+        fontWeight: 800,
+        whiteSpace: 'nowrap'
+      }
+    }, a);
+  })), React.createElement("div", {
     style: {
       display: 'flex',
       flexWrap: 'wrap',
@@ -132,7 +149,7 @@ function Banner() {
   }, React.createElement(Ic, {
     n: "phone",
     size: 17,
-    color: "var(--el-blue, #10559B)"
+    color: "var(--sky-500)"
   }), " +998 94 671 26 26"), React.createElement("a", {
     href: "#enroll",
     onClick: e => {

@@ -31,7 +31,7 @@ function ScrollTop() {
       width: 48,
       height: 48,
       borderRadius: '50%',
-      border: '2px solid var(--plate-line, #F2C41C)',
+      border: '2px solid var(--pink-200, #F9B2D2)',
       background: 'rgba(255,255,255,0.94)',
       color: 'var(--color-primary-text)',
       cursor: 'pointer',

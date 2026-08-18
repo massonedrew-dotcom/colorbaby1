@@ -29,7 +29,7 @@ function App() {
     dx: '90px',
     dy: '70px'
   }, {
-    c: '#FCD8E9',
+    c: '#FEE98A',
     x: '82%',
     y: '10%',
     s: '460px',
@@ -38,7 +38,7 @@ function App() {
     dx: '-80px',
     dy: '90px'
   }, {
-    c: '#EE4A9B',
+    c: '#96E6EF',
     x: '70%',
     y: '52%',
     s: '600px',
@@ -47,7 +47,7 @@ function App() {
     dx: '70px',
     dy: '-80px'
   }, {
-    c: '#FEE98A',
+    c: '#9CC0E8',
     x: '16%',
     y: '74%',
     s: '520px',
@@ -56,7 +56,7 @@ function App() {
     dx: '-70px',
     dy: '-60px'
   }, {
-    c: '#F47FB6',
+    c: '#C6F0F6',
     x: '46%',
     y: '88%',
     s: '440px',
@@ -64,67 +64,39 @@ function App() {
     d: '-12s',
     dx: '60px',
     dy: '-90px'
-  }, {
-    c: '#1F6FBE',
-    x: '90%',
-    y: '62%',
-    s: '380px',
-    t: '52s',
-    d: '-30s',
-    dx: '-60px',
-    dy: '70px'
-  }];
-  const rings = [{
-    s: '620px',
-    t: '38s',
-    d: '0s',
-    z: '-260px',
-    o: 0.18
-  }, {
-    s: '900px',
-    t: '54s',
-    d: '-12s',
-    z: '-140px',
-    o: 0.13
-  }, {
-    s: '1240px',
-    t: '72s',
-    d: '-26s',
-    z: '-40px',
-    o: 0.09
   }];
   const balloons = [{
-    c: '#10559B',
+    c: '#EE4A9B',
     x: '7%',
     t: '26s',
     d: '-2s',
     drift: '46px'
   }, {
-    c: '#FBD130',
+    c: '#22BFD1',
     x: '21%',
     t: '33s',
     d: '-14s',
     drift: '-32px'
   }, {
-    c: '#1F6FBE',
+    c: '#FBD130',
     x: '38%',
     t: '29s',
     d: '-23s',
     drift: '38px'
   }, {
-    c: '#FBD130',
+    c: '#1F6FBE',
     x: '58%',
     t: '36s',
     d: '-7s',
     drift: '-42px'
   }, {
-    c: '#0B4278',
+    c: '#F47FB6',
     x: '74%',
     t: '30s',
     d: '-19s',
     drift: '30px'
   }, {
-    c: '#1F6FBE',
+    c: '#FBD130',
     x: '89%',
     t: '38s',
     d: '-28s',
@@ -202,17 +174,7 @@ function App() {
     }
   })), React.createElement("span", {
     className: "cs-backdrop-dots"
-  }), rings.map((r, i) => React.createElement("span", {
-    key: 'r' + i,
-    className: "cs-depth-ring",
-    style: {
-      '--s': r.s,
-      '--t': r.t,
-      '--d': r.d,
-      '--z': r.z,
-      '--o': r.o
-    }
-  })), React.createElement("span", {
+  }), React.createElement("span", {
     className: "cs-sun-core"
   }), React.createElement("span", {
     className: "cs-sun-rays"

@@ -79,7 +79,6 @@ function Footer() {
     goal: 'click_phone'
   }];
   return React.createElement("footer", {
-    className: "cs-footer",
     style: {
       background: 'var(--ink-900)',
       color: '#fff',

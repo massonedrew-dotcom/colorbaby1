@@ -30,7 +30,7 @@ function ScrollTop() {
         bottom: 'clamp(16px, 3vh, 28px)',
         left: 'clamp(16px, 2vw, 28px)',
         width: 48, height: 48, borderRadius: '50%',
-        border: '2px solid var(--plate-line, #F2C41C)', background: 'rgba(255,255,255,0.94)',
+        border: '2px solid var(--pink-200, #F9B2D2)', background: 'rgba(255,255,255,0.94)',
         color: 'var(--color-primary-text)', cursor: 'pointer',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         boxShadow: 'var(--shadow-md)',
