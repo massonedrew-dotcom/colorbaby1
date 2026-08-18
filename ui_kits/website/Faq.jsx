@@ -27,7 +27,7 @@ function Faq() {
             return (
               <div key={it.q} style={{
                 background: 'var(--color-surface)',
-                border: '1px solid ' + (isOpen ? 'var(--pink-200, #F9B2D2)' : 'var(--color-border)'),
+                border: '1px solid ' + (isOpen ? 'var(--el-blue, #10559B)' : 'var(--color-border)'),
                 borderRadius: 'var(--radius-lg)',
                 boxShadow: isOpen ? 'var(--shadow-md)' : 'var(--shadow-sm)',
                 overflow: 'hidden',

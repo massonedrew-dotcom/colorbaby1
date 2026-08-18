@@ -116,7 +116,7 @@ function QuickApply() {
 
           {sent ? (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '12px', padding: '8px 0 4px' }}>
-              <span style={{ width: 56, height: 56, borderRadius: '50%', background: 'var(--mint-100)', color: 'var(--mint-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ width: 56, height: 56, borderRadius: '50%', background: 'var(--mint-100)', color: 'var(--on-mint-100)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Ic n="check" size={28} />
               </span>
               <h3 style={{ font: 'var(--font-h4)', fontSize: '20px', margin: 0 }}>

@@ -53,7 +53,7 @@ function Care() {
           <div className="cs-care-points cs-stagger" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
             {points.map((p) => (
               <div key={p.t} style={{ display: 'flex', gap: '14px' }}>
-                <span style={{ width: 46, height: 46, flex: 'none', borderRadius: '50%', background: 'var(--pink-100)', color: 'var(--pink-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ width: 46, height: 46, flex: 'none', borderRadius: '50%', background: 'var(--plate-soft, #FFF1B8)', color: 'var(--el-blue, #10559B)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Ic n={p.i} size={22} />
                 </span>
                 <div>

@@ -101,7 +101,7 @@ function Summer() {
       flex: 'none',
       borderRadius: '50%',
       background: 'var(--sky-100)',
-      color: 'var(--sky-500)',
+      color: 'var(--on-cyan-100)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'

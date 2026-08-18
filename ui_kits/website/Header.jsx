@@ -80,8 +80,8 @@ function Header() {
             style={{
               width: 48, height: 48, borderRadius: 'var(--radius-pill)',
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              background: '#fff', border: '2px solid var(--pink-200, #F9B2D2)',
-              color: 'var(--pink-500, #EE4A9B)', textDecoration: 'none',
+              background: '#fff', border: '2px solid var(--plate-line, #F2C41C)',
+              color: 'var(--el-blue, #10559B)', textDecoration: 'none',
               transition: 'transform var(--dur-fast) var(--ease-bounce)',
             }}
             onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
@@ -95,7 +95,7 @@ function Header() {
             size="lg"
             label="Telegram"
             onClick={() => { goal('click_telegram'); scrollToId('contacts'); }}
-            style={{ background: '#fff', border: '2px solid var(--pink-200, #F9B2D2)', color: 'var(--pink-500, #EE4A9B)' }}
+            style={{ background: '#fff', border: '2px solid var(--plate-line, #F2C41C)', color: 'var(--el-blue, #10559B)' }}
           />
           <span className="cs-header-cta">
             <Button variant="primary" size="lg" iconLeft={<Ic n="phone" size={20} />}

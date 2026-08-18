@@ -8,19 +8,13 @@ function Banner() {
 
   // ← Список занятий в баннере. Меняется здесь, порядок = порядок на экране.
   const activities = [
-    'Английский язык', 'Танцы', 'Тхэквондо', 'Актёрское мастерство',
+    'Английский язык', 'ЛФК', 'Танцы', 'Тхэквондо', 'Актёрское мастерство',
     'Рисование', 'Шахматы', 'Логопед-дефектолог', 'Массаж',
     'Мастер-классы', 'Развивающие игры', 'Робототехника',
   ];
-  /* Четвёрка цветов логотипа — ею раскрашиваются плашки занятий по кругу.
-     Текст берём из --on-*-tint: обычные 400/500 на своём светлом фоне дают
-     3–4:1, а плашки мелкие (14px) и им нужно 4.5:1. */
-  const chips = [
-    { bg: 'var(--pink-50)',   fg: 'var(--on-pink-tint)' },
-    { bg: 'var(--yellow-50)', fg: 'var(--on-yellow-tint)' },
-    { bg: 'var(--sky-50)',    fg: 'var(--on-cyan-tint)' },
-    { bg: 'var(--purple-50)', fg: 'var(--on-blue-tint)' },
-  ];
+  /* Плашки занятий — жёлтые (класс cs-chip, цвета в theme.css). Раньше они
+     раскрашивались по кругу в четвёрку цветов логотипа; теперь у плашек на
+     сайте один цвет, а текст на них тёмно-синий: 6.8:1, читается. */
 
   return (
     <section aria-label="Добро пожаловать" className="cs-banner" style={{ overflow: 'hidden' }}>
@@ -52,16 +46,12 @@ function Banner() {
             </span>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '8px' }}>
-              {activities.map((a, i) => {
-                const c = chips[i % chips.length];
-                return (
-                  <span key={a} style={{
-                    background: c.bg, color: c.fg,
-                    borderRadius: 'var(--radius-pill)', padding: '6px 13px',
-                    fontSize: '14px', fontWeight: 800, whiteSpace: 'nowrap',
-                  }}>{a}</span>
-                );
-              })}
+              {activities.map((a) => (
+                <span key={a} className="cs-chip" style={{
+                  borderRadius: 'var(--radius-pill)', padding: '6px 13px',
+                  fontSize: '14px', fontWeight: 800, whiteSpace: 'nowrap',
+                }}>{a}</span>
+              ))}
             </div>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: '12px 22px', marginTop: '4px' }}>
@@ -71,7 +61,7 @@ function Banner() {
               </a>
               <a href={'tel:' + CFG.PHONE_SECONDARY} onClick={() => goal('click_phone')}
                 style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 800, color: 'var(--ink-900)', textDecoration: 'none' }}>
-                <Ic n="phone" size={17} color="var(--sky-500)" /> +998 94 671 26 26
+                <Ic n="phone" size={17} color="var(--el-blue, #10559B)" /> +998 94 671 26 26
               </a>
               <a href="#enroll" onClick={(e) => { e.preventDefault(); goal('click_enroll_banner'); scrollToId && scrollToId('enroll'); }}
                 style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 800, color: 'var(--color-primary-text)', textDecoration: 'none' }}>

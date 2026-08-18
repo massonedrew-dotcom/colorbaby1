@@ -41,7 +41,7 @@ function Summer() {
           <div className="cs-stagger" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             {points.map((p) => (
               <div key={p.t} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span style={{ width: 44, height: 44, flex: 'none', borderRadius: '50%', background: 'var(--sky-100)', color: 'var(--sky-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ width: 44, height: 44, flex: 'none', borderRadius: '50%', background: 'var(--sky-100)', color: 'var(--on-cyan-100)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Ic n={p.i} size={20} />
                 </span>
                 <b style={{ fontFamily: 'var(--font-display)', fontSize: '15px', color: 'var(--ink-900)', lineHeight: 1.3 }}>{p.t}</b>

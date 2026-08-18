@@ -188,7 +188,7 @@ function QuickApply() {
       height: 56,
       borderRadius: '50%',
       background: 'var(--mint-100)',
-      color: 'var(--mint-500)',
+      color: 'var(--on-mint-100)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'

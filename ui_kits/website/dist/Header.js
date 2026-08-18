@@ -149,8 +149,8 @@ function Header() {
         alignItems: 'center',
         justifyContent: 'center',
         background: '#fff',
-        border: '2px solid var(--pink-200, #F9B2D2)',
-        color: 'var(--pink-500, #EE4A9B)',
+        border: '2px solid var(--plate-line, #F2C41C)',
+        color: 'var(--el-blue, #10559B)',
         textDecoration: 'none',
         transition: 'transform var(--dur-fast) var(--ease-bounce)'
       },
@@ -177,8 +177,8 @@ function Header() {
       },
       style: {
         background: '#fff',
-        border: '2px solid var(--pink-200, #F9B2D2)',
-        color: 'var(--pink-500, #EE4A9B)'
+        border: '2px solid var(--plate-line, #F2C41C)',
+        color: 'var(--el-blue, #10559B)'
       }
     }), React.createElement("span", {
       className: "cs-header-cta"

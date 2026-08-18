@@ -152,7 +152,7 @@ function Enroll() {
   }, React.createElement(Ic, {
     n: "send",
     size: 18,
-    color: "var(--sky-500)"
+    color: "var(--el-blue, #10559B)"
   }), " @", CFG.TELEGRAM))), React.createElement("div", {
     className: "cs-reveal-right cs-cta",
     style: {
@@ -177,7 +177,7 @@ function Enroll() {
       height: 72,
       borderRadius: '50%',
       background: 'var(--mint-100)',
-      color: 'var(--mint-500)',
+      color: 'var(--on-mint-100)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'

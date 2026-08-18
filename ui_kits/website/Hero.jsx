@@ -74,7 +74,7 @@ function Hero({ direction = 'sunshine' }) {
               background: '#fff', borderRadius: 'var(--radius-lg)', padding: '14px 18px',
               boxShadow: 'var(--shadow-lg)', display: 'flex', alignItems: 'center', gap: '12px',
             }}>
-              <span className="cs-heartbeat" style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--mint-100)', color: 'var(--mint-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span className="cs-heartbeat" style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--mint-100)', color: 'var(--on-mint-100)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Ic n="heart" size={22} />
               </span>
               <span style={{ lineHeight: 1.2 }}>

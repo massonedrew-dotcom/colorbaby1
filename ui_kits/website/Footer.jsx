@@ -37,7 +37,7 @@ function Footer() {
   ];
 
   return (
-    <footer style={{ background: 'var(--ink-900)', color: '#fff', paddingTop: 'clamp(48px,6vw,72px)' }}>
+    <footer className="cs-footer" style={{ background: 'var(--ink-900)', color: '#fff', paddingTop: 'clamp(48px,6vw,72px)' }}>
       <div className="cs-footer-grid cs-stagger" style={{
         maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 clamp(20px,5vw,48px)',
         display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', gap: '40px',
