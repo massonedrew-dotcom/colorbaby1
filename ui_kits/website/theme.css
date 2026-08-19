@@ -219,11 +219,14 @@ h3, h4, h5, h6 { color: var(--color-heading-sm) !important; }
 /* Иконка внутри плашки наследует цвет надписи, а не свой прежний */
 .cs-plate svg, .cs-tag svg { color: inherit !important; stroke: currentColor !important; }
 
-/* Бегущая строка — те же плашки */
-.cs-marquee-item {
-  background: var(--plate-soft) !important;
-  color: var(--plate-text) !important;
-  border-color: var(--plate-line) !important;
+/* Бегущую строку тема НЕ трогает — она остаётся такой, какой была до темы:
+   разноцветная лента в цветах логотипа с белыми надписями. Жёлтые плашки
+   на синей ленте выглядели как ошибка вёрстки, а сама лента — единственное
+   место, где все четыре цвета знака идут подряд, и её стоит сохранить.
+   --gradient-sun тема увела в синий (для вордмарка это верно), поэтому
+   ленте градиент возвращаем явно. */
+.cs-marquee {
+  background: linear-gradient(135deg, #EE4A9B 0%, #D62E83 30%, #1F6FBE 70%, #0E9BB0 100%) !important;
 }
 
 /* ============================================================

@@ -8,7 +8,6 @@ function Footer() {
     { h: 'Садик', items: [
       { t: 'О нас', id: 'about' },
       { t: 'Распорядок дня', id: 'schedule' },
-      { t: 'Галерея', id: 'gallery' },
       { t: 'Лето', id: 'summer' },
     ] },
     { h: 'Занятия', items: [

@@ -17,9 +17,6 @@ function Footer() {
       t: 'Распорядок дня',
       id: 'schedule'
     }, {
-      t: 'Галерея',
-      id: 'gallery'
-    }, {
       t: 'Лето',
       id: 'summer'
     }]

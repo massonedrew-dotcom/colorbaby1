@@ -34,7 +34,6 @@ const FILES = [
   'Programs.jsx',
   'Banner.jsx',
   'Care.jsx',
-  'Gallery.jsx',
   'DaySchedule.jsx',
   'Pricing.jsx',
   'Summer.jsx',

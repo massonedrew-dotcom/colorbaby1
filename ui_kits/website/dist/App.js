@@ -14,7 +14,6 @@ function App() {
     Footer,
     QuickApply,
     Marquee,
-    Gallery,
     Faq,
     ScrollTop,
     CookieBanner
@@ -212,8 +211,8 @@ function App() {
     className: "cs-skip"
   }, "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043A \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u043D\u0438\u044E"), React.createElement(Header, null), React.createElement("main", {
     id: "main"
-  }, React.createElement(Banner, null), React.createElement(Summer, null), React.createElement(Hero, {
+  }, React.createElement(Marquee, null), React.createElement(Banner, null), React.createElement(Summer, null), React.createElement(Hero, {
     direction: "sunshine"
-  }), React.createElement(Marquee, null), React.createElement(Care, null), React.createElement(Programs, null), React.createElement(Gallery, null), React.createElement(DaySchedule, null), React.createElement(Pricing, null), React.createElement(Enroll, null), React.createElement(Testimonials, null), React.createElement(Faq, null), React.createElement(Contacts, null)), React.createElement(Footer, null), React.createElement(QuickApply, null), React.createElement(ScrollTop, null), React.createElement(CookieBanner, null));
+  }), React.createElement(Care, null), React.createElement(Programs, null), React.createElement(DaySchedule, null), React.createElement(Pricing, null), React.createElement(Enroll, null), React.createElement(Testimonials, null), React.createElement(Faq, null), React.createElement(Contacts, null)), React.createElement(Footer, null), React.createElement(QuickApply, null), React.createElement(ScrollTop, null), React.createElement(CookieBanner, null));
 }
 window.App = App;

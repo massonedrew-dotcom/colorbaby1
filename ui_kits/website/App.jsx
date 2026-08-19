@@ -1,7 +1,7 @@
 /* Color Baby House — Website app shell */
 function App() {
   const { Header, Hero, Programs, Banner, Care, DaySchedule, Summer, Pricing, Testimonials,
-          Enroll, Contacts, Footer, QuickApply, Marquee, Gallery, Faq, ScrollTop, CookieBanner } = window;
+          Enroll, Contacts, Footer, QuickApply, Marquee, Faq, ScrollTop, CookieBanner } = window;
 
   /* Живой фон всего сайта — садиковая сцена за контентом: солнце с лучами,
      плывущие облака, поднимающиеся шарики и мерцающие звёздочки.
@@ -78,13 +78,15 @@ function App() {
           ссылки-пропуска выше. Шапка, подвал и плавающие виджеты остаются
           снаружи: они не часть содержания страницы. */}
       <main id="main">
+        {/* Бегущая строка стоит первой, сразу под шапкой: раньше она была
+            после героя, на ~2200px вниз, и сверху её просто не было видно —
+            на 100% масштаба до неё не доскроллить с первого экрана. */}
+        <Marquee />
         <Banner />
         <Summer />
         <Hero direction="sunshine" />
-        <Marquee />
         <Care />
         <Programs />
-        <Gallery />
         <DaySchedule />
         <Pricing />
         <Enroll />
