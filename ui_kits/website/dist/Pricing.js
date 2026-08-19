@@ -119,20 +119,23 @@ function Pricing() {
         style: {
           display: 'flex',
           alignItems: 'baseline',
-          gap: '6px'
+          gap: '6px',
+          flexWrap: 'wrap'
         }
       }, React.createElement("b", {
         style: {
           fontFamily: 'var(--font-display)',
           fontWeight: 800,
-          fontSize: '38px',
-          color: 'var(--ink-900)'
+          fontSize: 'clamp(28px,2.6vw,38px)',
+          color: 'var(--ink-900)',
+          whiteSpace: 'nowrap'
         }
       }, p.price), React.createElement("span", {
         style: {
           fontSize: '15px',
           color: 'var(--color-text-muted)',
-          fontWeight: 700
+          fontWeight: 700,
+          whiteSpace: 'nowrap'
         }
       }, p.period)), React.createElement("div", {
         style: {

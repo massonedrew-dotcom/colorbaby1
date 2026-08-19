@@ -32,6 +32,10 @@ export function Badge({
 
   return (
     <span
+      /* cs-plate — крючок для темы: ui_kits/website/theme.css перекрашивает
+         все плашки разом, не трогая палитру самого компонента. Компонент
+         раскрашен инлайново, без класса тема до него не достаёт. */
+      className={'cs-plate cs-plate-' + color + (isSolid ? ' cs-plate-solid' : ' cs-plate-soft')}
       style={{
         display: 'inline-flex',
         alignItems: 'center',

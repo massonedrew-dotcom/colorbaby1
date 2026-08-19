@@ -3,6 +3,38 @@
 /* Страховка от горизонтального скролла из-за декоративных карточек со смещением */
 html, body { overflow-x: hidden; }
 
+/* ---------- Ссылка «Перейти к содержанию» ----------
+   Лежит первой в DOM (App.jsx). Убрана с глаз не через display:none —
+   скрытый так элемент не получает фокус, и смысла в ссылке нет, — а сдвигом
+   за верхний край. По Tab она выезжает в левый верхний угол. */
+.cs-skip {
+  position: fixed;
+  top: 0;
+  left: 12px;
+  z-index: 1300;                  /* выше липкой шапки (100) и модалок (1100) */
+  transform: translateY(-120%);
+  padding: 12px 20px;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background: var(--color-primary-fill, #D62E83);
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.cs-skip:focus { transform: translateY(0); }
+
+/* ---------- Касания ----------
+   manipulation убирает 300-миллисекундную задержку двойного тапа на мобильных:
+   браузер перестаёт ждать второй тап для зума. Подсветку тапа гасим — у кнопок
+   и карточек есть собственное состояние :active, серый прямоугольник поверх
+   скруглённых форм выглядит грязно. */
+a, button, [role="button"], label, input, summary {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* ---------- Фон сайта: живая заливка в четырёх цветах логотипа ----------
    Белый лист сайту не идёт: логотип на нём смотрится как наклейка, а страница
    выглядит чужой. Поэтому фон здесь собран из тех же четырёх цветов, что и
@@ -95,7 +127,13 @@ body {
 .cs-footer-social:focus-visible {
   background: var(--pink-500, #D62E83) !important;
   transform: translateY(-2px) scale(1.05);
+}
+/* Фокус нельзя показывать тем же, чем показан hover: с клавиатуры тогда не
+   видно, где ты находишься. Родной outline снят (он рисует прямоугольник
+   поверх круглой кнопки), вместо него — белое кольцо на тёмном подвале. */
+.cs-footer-social:focus-visible {
   outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.95), 0 0 0 6px rgba(238, 74, 155, 0.55);
 }
 .cs-footer-social:active { transform: scale(0.94); }
 

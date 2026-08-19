@@ -72,9 +72,13 @@ function Pricing() {
                   <span style={{ fontSize: '14px', color: 'var(--color-text-muted)' }}>{p.desc}</span>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-                  <b style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '38px', color: 'var(--ink-900)' }}>{p.price}</b>
-                  <span style={{ fontSize: '15px', color: 'var(--color-text-muted)', fontWeight: 700 }}>{p.period}</span>
+                {/* flexWrap + nowrap на цене: «4 200 000» при 38px не влезало
+                    в узкую карточку «Полный день», разрывалось посреди числа
+                    и наезжало на «сум / мес». Теперь число не ломается, а на
+                    вторую строку при нехватке места уходит период целиком. */}
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', flexWrap: 'wrap' }}>
+                  <b style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(28px,2.6vw,38px)', color: 'var(--ink-900)', whiteSpace: 'nowrap' }}>{p.price}</b>
+                  <span style={{ fontSize: '15px', color: 'var(--color-text-muted)', fontWeight: 700, whiteSpace: 'nowrap' }}>{p.period}</span>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>

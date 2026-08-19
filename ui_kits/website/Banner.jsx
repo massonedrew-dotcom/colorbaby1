@@ -55,7 +55,10 @@ function Banner() {
               {activities.map((a, i) => {
                 const c = chips[i % chips.length];
                 return (
-                  <span key={a} style={{
+                  /* cs-plate — крючок для темы: плашки занятий раскрашены
+                     инлайново, и без класса theme.css до них не достаёт.
+                     Без темы класс ничего не меняет. */
+                  <span key={a} className="cs-plate" style={{
                     background: c.bg, color: c.fg,
                     borderRadius: 'var(--radius-pill)', padding: '6px 13px',
                     fontSize: '14px', fontWeight: 800, whiteSpace: 'nowrap',

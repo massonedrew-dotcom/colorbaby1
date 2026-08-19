@@ -32,7 +32,13 @@ function QuickApply() {
 
   const submit = async (e) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validate()) {
+      // Курсор — в первое поле с ошибкой: красной подписи мало, человеку
+      // нужно оказаться там, где нужно исправлять.
+      const bad = e.currentTarget.querySelector('input[aria-invalid="true"], input[name="phone"]');
+      if (bad) bad.focus();
+      return;
+    }
     const form = e.currentTarget;
     setFailed('');
     setBusy(true);
@@ -115,7 +121,9 @@ function QuickApply() {
           </button>
 
           {sent ? (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '12px', padding: '8px 0 4px' }}>
+            /* role="status" — форма сменилась благодарностью; без этого
+               скринридер об отправке не узнает. */
+            <div role="status" aria-live="polite" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '12px', padding: '8px 0 4px' }}>
               <span style={{ width: 56, height: 56, borderRadius: '50%', background: 'var(--mint-100)', color: 'var(--mint-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Ic n="check" size={28} />
               </span>

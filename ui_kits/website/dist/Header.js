@@ -75,6 +75,7 @@ function Header() {
       size: 54,
       className: "cs-sun-spin"
     }), React.createElement("span", {
+      translate: "no",
       style: {
         display: 'flex',
         flexDirection: 'column',
@@ -119,7 +120,7 @@ function Header() {
         color: 'var(--ink-700)',
         textDecoration: 'none',
         whiteSpace: 'nowrap',
-        transition: 'all var(--dur-base) var(--ease-out)'
+        transition: 'background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out)'
       },
       onMouseEnter: e => {
         e.currentTarget.style.background = 'var(--color-primary-soft)';

@@ -17,6 +17,11 @@ function Enroll() {
     // Проверяем номер до отправки: пустая или битая заявка бесполезна обеим сторонам.
     if (phone.replace(/\D/g, '').length < 9) {
       setPhoneErr('Введите номер телефона полностью');
+      // Возвращаем курсор в поле с ошибкой: иначе человек видит красную
+      // подпись, но не понимает, куда именно печатать, — а с клавиатуры
+      // фокус вообще остаётся на кнопке.
+      const field = form.querySelector('input[name="phone"]');
+      if (field) field.focus();
       return;
     }
     setPhoneErr('');
@@ -70,7 +75,10 @@ function Enroll() {
             padding: 'clamp(24px,3vw,36px)', boxShadow: 'var(--shadow-lg)',
           }}>
             {sent ? (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '14px', padding: '24px 0' }}>
+              /* role="status" — форма исчезает и на её месте появляется
+                 благодарность. Без этого скринридер молчит: визуально всё
+                 понятно, на слух — ничего не произошло. */
+              <div role="status" aria-live="polite" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '14px', padding: '24px 0' }}>
                 <span style={{ width: 72, height: 72, borderRadius: '50%', background: 'var(--mint-100)', color: 'var(--mint-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Ic n="check" size={38} />
                 </span>

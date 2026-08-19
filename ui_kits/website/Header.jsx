@@ -40,7 +40,9 @@ function Header() {
           {/* Начертание как в логотипе: «COLOR» над «BABY HOUSE», округлый
               Riffic (--font-accent, только латиница — здесь она и нужна).
               nowrap — иначе на узких экранах слова разъезжаются. */}
-          <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.02 }}>
+          {/* translate="no" — чтобы автоперевод браузера не превратил название
+              бренда в «ЦВЕТНОЙ ДЕТСКИЙ ДОМ». Имя компании не переводится. */}
+          <span translate="no" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.02 }}>
             <span style={{ fontFamily: 'var(--font-accent)', fontSize: '19px', letterSpacing: '.06em', color: 'var(--ink-900)', whiteSpace: 'nowrap' }}>
               COLOR
             </span>
@@ -59,7 +61,10 @@ function Header() {
                 padding: '12px 13px', borderRadius: 'var(--radius-pill)',
                 fontWeight: 700, fontSize: '16px', color: 'var(--ink-700)', textDecoration: 'none',
                 whiteSpace: 'nowrap',        /* «О садике» и «Распорядок» ломались на две строки */
-                transition: 'all var(--dur-base) var(--ease-out)',
+                /* Свойства перечислены поимённо, а не `all`: с `all` браузер
+                   анимирует и то, что меняется не для красоты, — на этих
+                   ссылках меняются ровно фон и цвет. */
+                transition: 'background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out)',
               }}
               onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--color-primary-soft)'; e.currentTarget.style.color = 'var(--color-primary-press)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--ink-700)'; }}

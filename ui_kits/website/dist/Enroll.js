@@ -27,6 +27,8 @@ function Enroll() {
     const form = e.currentTarget;
     if (phone.replace(/\D/g, '').length < 9) {
       setPhoneErr('Введите номер телефона полностью');
+      const field = form.querySelector('input[name="phone"]');
+      if (field) field.focus();
       return;
     }
     setPhoneErr('');
@@ -163,6 +165,8 @@ function Enroll() {
       boxShadow: 'var(--shadow-lg)'
     }
   }, sent ? React.createElement("div", {
+    role: "status",
+    "aria-live": "polite",
     style: {
       display: 'flex',
       flexDirection: 'column',

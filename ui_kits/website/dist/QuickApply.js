@@ -47,7 +47,11 @@ function QuickApply() {
   };
   const submit = async e => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validate()) {
+      const bad = e.currentTarget.querySelector('input[aria-invalid="true"], input[name="phone"]');
+      if (bad) bad.focus();
+      return;
+    }
     const form = e.currentTarget;
     setFailed('');
     setBusy(true);
@@ -174,6 +178,8 @@ function QuickApply() {
     n: "x",
     size: 18
   })), sent ? React.createElement("div", {
+    role: "status",
+    "aria-live": "polite",
     style: {
       display: 'flex',
       flexDirection: 'column',

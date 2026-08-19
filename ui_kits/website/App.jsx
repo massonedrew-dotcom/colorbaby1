@@ -68,20 +68,30 @@ function App() {
   return (
     <div>
       {backdrop}
+      {/* Ссылка «к содержанию» — первое, что получает фокус по Tab.
+          Видна только при фокусе (стили .cs-skip в site.css): человеку с
+          клавиатуры или скринридером не нужно проходить всё меню, чтобы
+          добраться до текста страницы. */}
+      <a href="#main" className="cs-skip">Перейти к содержанию</a>
       <Header />
-      <Banner />
-      <Summer />
-      <Hero direction="sunshine" />
-      <Marquee />
-      <Care />
-      <Programs />
-      <Gallery />
-      <DaySchedule />
-      <Pricing />
-      <Enroll />
-      <Testimonials />
-      <Faq />
-      <Contacts />
+      {/* <main> — ориентир «основное содержимое» для скринридеров и цель
+          ссылки-пропуска выше. Шапка, подвал и плавающие виджеты остаются
+          снаружи: они не часть содержания страницы. */}
+      <main id="main">
+        <Banner />
+        <Summer />
+        <Hero direction="sunshine" />
+        <Marquee />
+        <Care />
+        <Programs />
+        <Gallery />
+        <DaySchedule />
+        <Pricing />
+        <Enroll />
+        <Testimonials />
+        <Faq />
+        <Contacts />
+      </main>
       <Footer />
 
       {/* Плавающий виджет заявки (нижний правый угол) */}

@@ -99,18 +99,20 @@ function Banner() {
     }
   }, activities.map((a, i) => {
     const c = chips[i % chips.length];
-    return React.createElement("span", {
-      key: a,
-      style: {
-        background: c.bg,
-        color: c.fg,
-        borderRadius: 'var(--radius-pill)',
-        padding: '6px 13px',
-        fontSize: '14px',
-        fontWeight: 800,
-        whiteSpace: 'nowrap'
-      }
-    }, a);
+    return (React.createElement("span", {
+        key: a,
+        className: "cs-plate",
+        style: {
+          background: c.bg,
+          color: c.fg,
+          borderRadius: 'var(--radius-pill)',
+          padding: '6px 13px',
+          fontSize: '14px',
+          fontWeight: 800,
+          whiteSpace: 'nowrap'
+        }
+      }, a)
+    );
   })), React.createElement("div", {
     style: {
       display: 'flex',
