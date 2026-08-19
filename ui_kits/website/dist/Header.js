@@ -136,7 +136,14 @@ function Header() {
         alignItems: 'center',
         gap: '10px'
       },
-      className: "cs-nav"
+      className: "cs-header-actions"
+    }, React.createElement("span", {
+      className: "cs-header-icons",
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px'
+      }
     }, React.createElement("a", {
       href: 'tel:' + CFG.PHONE_PRIMARY,
       "aria-label": "\u041F\u043E\u0437\u0432\u043E\u043D\u0438\u0442\u044C: +998 90 176 69 99",
@@ -181,7 +188,7 @@ function Header() {
         border: '2px solid var(--pink-200, #F9B2D2)',
         color: 'var(--pink-500, #EE4A9B)'
       }
-    }), React.createElement("span", {
+    })), React.createElement("span", {
       className: "cs-header-cta"
     }, React.createElement(Button, {
       variant: "primary",

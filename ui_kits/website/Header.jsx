@@ -77,7 +77,15 @@ function Header() {
             наведении и пускал по ней блик — рядом с иконкой Telegram это
             читалось как «кнопка магнитится». В шапке кнопка стоит неподвижно,
             подсветка — только тенью (.cs-header-cta в motion.css). */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className="cs-nav">
+        {/* Класс здесь свой, а не cs-nav: раньше блок с кнопками прятался тем
+            же правилом, что и пункты меню (<= 1380px), и на любом ноутбуке
+            уже из шапки пропадали телефон, Telegram и «Записаться» — оставалась
+            почти белая полоса с логотипом и бургером. Пункты меню под 1380px
+            действительно не влезают и уходят в бургер, а кнопки остаются. */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className="cs-header-actions">
+          {/* Иконки-кружки прячутся раньше кнопки (см. site.css): на узком
+              экране приоритет у «Записаться», а телефон есть в бургер-меню. */}
+          <span className="cs-header-icons" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {/* Позвонить прямо из шапки — самый короткий путь к заявке.
               Это <a href="tel:">, а не кнопка: работает и без JS, и видно роботу. */}
           <a href={'tel:' + CFG.PHONE_PRIMARY} aria-label="Позвонить: +998 90 176 69 99" title="Позвонить"
@@ -102,6 +110,7 @@ function Header() {
             onClick={() => { goal('click_telegram'); scrollToId('contacts'); }}
             style={{ background: '#fff', border: '2px solid var(--pink-200, #F9B2D2)', color: 'var(--pink-500, #EE4A9B)' }}
           />
+          </span>
           <span className="cs-header-cta">
             <Button variant="primary" size="lg" iconLeft={<Ic n="phone" size={20} />}
               onClick={() => { goal('click_enroll_header'); scrollToId('enroll'); }}>Записаться</Button>
