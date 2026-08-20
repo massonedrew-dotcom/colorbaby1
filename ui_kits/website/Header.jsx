@@ -1,36 +1,54 @@
 /* Color Baby House — Site header */
 function Header() {
-  const { Button, IconButton } = window.DesignSystem_52b7c1;
+  const { Button } = window.DesignSystem_52b7c1;
   const { Ic, SunMark, scrollToId, homeUrl, goal, CFG } = window;
-  const [menuOpen, setMenuOpen] = React.useState(false);
-  // label — текст пункта меню, id — секция, к которой он ведёт.
+
+  /* Цвета логотипа как заливка пунктов меню.
+     Пары «фон + текст» подобраны по контрасту, а не на глаз (надпись 15px
+     жирным — это мелкий текст, норма 4,5:1):
+       фуксия  #D62E83 + белый  — 4,59:1  (на исходном #EE4A9B было 3,45 — мало)
+       бирюза  #22BFD1 + #062F52 — 5,8:1  (с прежним #0B4278 выходило 4,36 — мало)
+       жёлтый  #FBD130 + #062F52 — 9,3:1
+       синий   #10559B + белый  — 7,5:1
+     Белый текст на бирюзе и жёлтом невозможен в принципе (2,2:1 и 1,4:1),
+     поэтому светлые заливки берут тёмно-синюю надпись. */
+  const INK_ON_LIGHT = '#062F52';
+  const TONES = {
+    pink:   { bg: '#D62E83', fg: '#fff',         glow: 'rgba(214, 46, 131, 0.42)' },
+    cyan:   { bg: '#22BFD1', fg: INK_ON_LIGHT,   glow: 'rgba(34, 191, 209, 0.42)' },
+    yellow: { bg: '#FBD130', fg: INK_ON_LIGHT,   glow: 'rgba(251, 209, 48, 0.50)' },
+    blue:   { bg: '#10559B', fg: '#fff',         glow: 'rgba(16, 85, 155, 0.42)' },
+  };
+
+  /* label — текст пункта меню, id — секция, tone — цвет знака.
+     Четыре цвета идут по кругу, чтобы соседние пункты не повторялись. */
   const nav = [
-    { label: 'О садике',    id: 'about' },
-    { label: 'Занятия',     id: 'programs' },
-    { label: 'Лето',        id: 'summer' },
-    { label: 'Распорядок',  id: 'schedule' },
-    { label: 'Цены',        id: 'pricing' },
-    { label: 'Отзывы',      id: 'reviews' },
-    { label: 'Вопросы',     id: 'faq' },
-    { label: 'Контакты',    id: 'contacts' },
+    { label: 'О садике',    id: 'about',    tone: 'pink'   },
+    { label: 'Занятия',     id: 'programs', tone: 'cyan'   },
+    { label: 'Лето',        id: 'summer',   tone: 'yellow' },
+    { label: 'Распорядок',  id: 'schedule', tone: 'blue'   },
+    { label: 'Цены',        id: 'pricing',  tone: 'pink'   },
+    { label: 'Отзывы',      id: 'reviews',  tone: 'cyan'   },
+    { label: 'Вопросы',     id: 'faq',      tone: 'yellow' },
+    { label: 'Контакты',    id: 'contacts', tone: 'blue'   },
   ];
 
-  const go = (id) => { setMenuOpen(false); scrollToId(id); };
-
   return (
-    /* Шапка почти белая, а не розовая: на розовом фоне розовые кнопки
-       сливались и «Записаться» терялась. */
+    /* Шапка почти белая, а не розовая: на розовом фоне цветные кнопки
+       меню сливались бы с ним. Бургера и выпадающего меню здесь больше нет —
+       все разделы видны сразу, кнопками (нижний ряд). */
     <header className="cs-header" style={{
       position: 'sticky', top: 0, zIndex: 100,
-      background: 'rgba(255, 252, 253, 0.90)', backdropFilter: 'blur(12px)',
+      background: 'rgba(255, 252, 253, 0.92)', backdropFilter: 'blur(12px)',
       borderBottom: '1px solid var(--pink-100, var(--color-border))',
     }}>
-      {/* Шире контентного контейнера (1200px): выросшему меню его не хватало —
-          пунктам оставалось 624px при нужных 729, и они ломались на две строки. */}
+      {/* Верхний ряд: знак и два действия. Раньше здесь стояли три кнопки
+          (кружок «позвонить», кружок Telegram и «Записаться») — оставлены
+          телефон и запись, Telegram живёт в «Контактах» и подвале. */}
       <div className="cs-header-inner" style={{
         maxWidth: '1400px', margin: '0 auto',
-        padding: '16px clamp(20px,5vw,48px)',
-        display: 'flex', alignItems: 'center', gap: '24px',
+        padding: '12px clamp(16px,4vw,48px)',
+        display: 'flex', alignItems: 'center', gap: '16px',
       }}>
         {/* Brand — ссылка на главную, а не «якорь в никуда»: по чек-листу
             логотип обязан вести на главную страницу сайта. */}
@@ -42,7 +60,7 @@ function Header() {
               nowrap — иначе на узких экранах слова разъезжаются. */}
           {/* translate="no" — чтобы автоперевод браузера не превратил название
               бренда в «ЦВЕТНОЙ ДЕТСКИЙ ДОМ». Имя компании не переводится. */}
-          <span translate="no" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.02 }}>
+          <span translate="no" className="cs-brand-word" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.02 }}>
             <span style={{ fontFamily: 'var(--font-accent)', fontSize: '19px', letterSpacing: '.06em', color: 'var(--ink-900)', whiteSpace: 'nowrap' }}>
               COLOR
             </span>
@@ -52,114 +70,51 @@ function Header() {
           </span>
         </a>
 
-        {/* Nav (десктоп) */}
-        <nav style={{ display: 'flex', gap: '2px', marginLeft: 'auto' }} className="cs-nav" aria-label="Основное меню">
-          {nav.map((n) => (
-            <a key={n.id} href={`#${n.id}`}
-              onClick={(e) => { e.preventDefault(); go(n.id); }}
-              style={{
-                padding: '12px 13px', borderRadius: 'var(--radius-pill)',
-                fontWeight: 700, fontSize: '16px', color: 'var(--ink-700)', textDecoration: 'none',
-                whiteSpace: 'nowrap',        /* «О садике» и «Распорядок» ломались на две строки */
-                /* Свойства перечислены поимённо, а не `all`: с `all` браузер
-                   анимирует и то, что меняется не для красоты, — на этих
-                   ссылках меняются ровно фон и цвет. */
-                transition: 'background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out)',
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--color-primary-soft)'; e.currentTarget.style.color = 'var(--color-primary-press)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--ink-700)'; }}
-            >{n.label}</a>
-          ))}
-        </nav>
-
-        {/* Actions (десктоп)
-            Класса cs-cta здесь нет намеренно: он поднимал кнопку на 3px при
-            наведении и пускал по ней блик — рядом с иконкой Telegram это
-            читалось как «кнопка магнитится». В шапке кнопка стоит неподвижно,
-            подсветка — только тенью (.cs-header-cta в motion.css). */}
-        {/* Класс здесь свой, а не cs-nav: раньше блок с кнопками прятался тем
-            же правилом, что и пункты меню (<= 1380px), и на любом ноутбуке
-            уже из шапки пропадали телефон, Telegram и «Записаться» — оставалась
-            почти белая полоса с логотипом и бургером. Пункты меню под 1380px
-            действительно не влезают и уходят в бургер, а кнопки остаются. */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className="cs-header-actions">
-          {/* Иконки-кружки прячутся раньше кнопки (см. site.css): на узком
-              экране приоритет у «Записаться», а телефон есть в бургер-меню. */}
-          <span className="cs-header-icons" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div className="cs-header-actions" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '10px' }}>
           {/* Позвонить прямо из шапки — самый короткий путь к заявке.
-              Это <a href="tel:">, а не кнопка: работает и без JS, и видно роботу. */}
-          <a href={'tel:' + CFG.PHONE_PRIMARY} aria-label="Позвонить: +998 90 176 69 99" title="Позвонить"
+              Это <a href="tel:">, а не кнопка: работает и без JS, и видно роботу.
+              Жёлтая плашка — цвет шарика из знака; номер виден целиком, на
+              узком экране (см. site.css) остаётся одна иконка. */}
+          <a href={'tel:' + CFG.PHONE_PRIMARY} className="cs-header-phone"
+            aria-label="Позвонить: +998 90 176 69 99" title="Позвонить"
             onClick={() => goal('click_phone')}
             style={{
-              width: 48, height: 48, borderRadius: 'var(--radius-pill)',
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              background: '#fff', border: '2px solid var(--pink-200, #F9B2D2)',
-              color: 'var(--pink-500, #EE4A9B)', textDecoration: 'none',
-              transition: 'transform var(--dur-fast) var(--ease-bounce)',
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              minHeight: '48px', padding: '0 18px',
+              borderRadius: 'var(--radius-pill)',
+              background: TONES.yellow.bg, color: TONES.yellow.fg,
+              fontWeight: 800, fontSize: '15px', textDecoration: 'none',
+              whiteSpace: 'nowrap',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; }}
           >
-            <Ic n="phone" size={22} />
+            <Ic n="phone" size={19} />
+            <span className="cs-header-phone-label">+998 90 176 69 99</span>
           </a>
-          <IconButton
-            icon={<Ic n="send" size={22} />}
-            variant="soft"
-            size="lg"
-            label="Telegram"
-            onClick={() => { goal('click_telegram'); scrollToId('contacts'); }}
-            style={{ background: '#fff', border: '2px solid var(--pink-200, #F9B2D2)', color: 'var(--pink-500, #EE4A9B)' }}
-          />
-          </span>
           <span className="cs-header-cta">
-            <Button variant="primary" size="lg" iconLeft={<Ic n="phone" size={20} />}
+            <Button variant="primary" size="lg" iconLeft={<Ic n="calendar-check" size={20} />}
               onClick={() => { goal('click_enroll_header'); scrollToId('enroll'); }}>Записаться</Button>
           </span>
         </div>
-
-        {/* Бургер (мобильный) */}
-        <button
-          className="cs-burger"
-          aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((o) => !o)}
-          style={{
-            marginLeft: 'auto', width: 54, height: 54, borderRadius: 'var(--radius-pill)',
-            border: '1px solid var(--color-border)', background: 'var(--color-surface)',
-            color: 'var(--ink-900)', cursor: 'pointer',
-            alignItems: 'center', justifyContent: 'center',
-          }}
-        >
-          <Ic n={menuOpen ? 'x' : 'menu'} size={24} />
-        </button>
       </div>
 
-      {/* Выпадающее меню (мобильное) */}
-      <nav className={`cs-mobile-nav${menuOpen ? ' cs-mobile-nav-open' : ''}`} aria-label="Мобильное меню" style={{
-        flexDirection: 'column', gap: '4px',
-        padding: '8px clamp(20px,5vw,48px) 16px',
-        borderTop: '1px solid var(--color-border)', background: 'var(--cream)',
-      }}>
-        {nav.map((n) => (
-          <a key={n.id} href={`#${n.id}`}
-            onClick={(e) => { e.preventDefault(); go(n.id); }}
-            style={{
-              padding: '12px 14px', borderRadius: 'var(--radius-md)',
-              fontWeight: 700, fontSize: '16px', color: 'var(--ink-700)', textDecoration: 'none',
-            }}
-          >{n.label}</a>
-        ))}
-        <a href={'tel:' + CFG.PHONE_PRIMARY} onClick={() => goal('click_phone')}
-          style={{
-            padding: '12px 14px', borderRadius: 'var(--radius-md)',
-            fontWeight: 800, fontSize: '16px', color: 'var(--color-primary-text)', textDecoration: 'none',
-            display: 'flex', alignItems: 'center', gap: '8px',
-          }}>
-          <Ic n="phone" size={18} /> +998 90 176 69 99
-        </a>
-        <div style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
-          <Button variant="soft" size="md" iconLeft={<Ic n="send" size={18} />} onClick={() => { goal('click_telegram'); go('contacts'); }} style={{ flex: 1 }}>Telegram</Button>
-          <Button variant="primary" size="md" iconLeft={<Ic n="phone" size={17} />} onClick={() => { goal('click_enroll_header'); go('enroll'); }} style={{ flex: 1 }}>Записаться</Button>
+      {/* Нижний ряд: разделы сайта кнопками в цветах знака.
+          Ряд видно на любой ширине: на десктопе он укладывается в строку,
+          на телефоне прокручивается вбок (site.css) — выпадающее меню на
+          пол-экрана больше не нужно. */}
+      <nav className="cs-navbar" aria-label="Основное меню">
+        <div className="cs-navbar-inner">
+          {nav.map((n) => {
+            const t = TONES[n.tone];
+            return (
+              <a key={n.id} href={`#${n.id}`} className="cs-navbtn"
+                onClick={(e) => { e.preventDefault(); scrollToId(n.id); }}
+                style={{
+                  background: t.bg, color: t.fg,
+                  '--cs-navbtn-glow': t.glow,
+                }}
+              >{n.label}</a>
+            );
+          })}
         </div>
       </nav>
     </header>

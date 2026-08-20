@@ -77,43 +77,101 @@ body {
 
 /* Анимации появления, микроанимации и весь остальной motion — в motion.css */
 
-/* ---------- Мобильное меню ---------- */
-.cs-burger { display: none; }              /* по умолчанию (десктоп) скрыт */
-.cs-mobile-nav { display: none; }
+/* ---------- Шапка: разделы кнопками ----------
+   Бургера и выпадающего меню на пол-экрана больше нет. Разделы сайта —
+   цветные кнопки во втором ряду шапки: на широком экране укладываются в
+   строку, на узком ряд прокручивается вбок. Цвета кнопок задаёт Header.jsx
+   (по цветам знака), здесь — форма, размеры и поведение ряда. */
+/* Шапка липкая и теперь двухэтажная — переход к разделу должен
+   останавливаться ниже неё, иначе заголовок секции прячется под шапкой.
+   Раньше запаса хватало случайно; теперь он задан явно. */
+html { scroll-padding-top: 132px; }
+@media (max-width: 560px) { html { scroll-padding-top: 116px; } }
 
-/* ---------- Шапка: бургер (<= 1380px) ----------
-   Точка перехода вычислена по факту: горизонтальному меню нужно 1305px
-   вместе с логотипом и кнопками. Ниже этого оно не помещается, поэтому
-   меню прячется и появляется бургер — раньше это происходило только на
-   900px, и в промежутке пункты налезали друг на друга.
-   Порог поднят с 1340 до 1380px: в меню добавился пункт «Вопросы», а в
-   кнопки — телефон, и прежнего запаса по ширине стало не хватать. */
-@media (max-width: 1380px) {
-  .cs-nav { display: none !important; }
-  .cs-burger { display: inline-flex !important; }
-  .cs-mobile-nav.cs-mobile-nav-open { display: flex !important; }
+/* Действия в шапке не сжимаются: на телефоне жёлтая кнопка превращалась
+   в полоску, а «Записаться» уезжала за правый край. Ужимается знак. */
+.cs-header-actions, .cs-header-phone { flex: 0 0 auto; }
+.cs-brand { min-width: 0; }
 
-  /* Кнопки остаются. Раньше они прятались вместе с меню — на ноутбуке
-     1280–1366px из шапки исчезала главная кнопка сайта. Отступ auto
-     переезжает на них, а у бургера снимается: иначе бургер уехал бы
-     к правому краю, а кнопки прилипли к логотипу. */
-  .cs-header-actions { margin-left: auto; }
-  .cs-burger { margin-left: 0 !important; }
+.cs-navbar { border-top: 1px solid var(--pink-100, var(--color-border)); }
+.cs-navbar-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px clamp(16px, 4vw, 48px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cs-navbtn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;              /* норма касания — 44px */
+  padding: 0 18px;
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;           /* «О садике» и «Распорядок» ломались на две строки */
+  /* Свойства перечислены поимённо, а не `all`: с `all` браузер анимирует и
+     то, что меняется не для красоты. */
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+}
+.cs-navbtn:hover,
+.cs-navbtn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px var(--cs-navbtn-glow, rgba(16, 85, 155, 0.32));
+}
+.cs-navbtn:active { transform: translateY(0) scale(0.97); box-shadow: none; }
+
+/* Телефон в шапке ведёт себя как кнопка меню: тот же подъём и то же
+   свечение, только жёлтое. */
+.cs-header-phone {
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+}
+.cs-header-phone:hover,
+.cs-header-phone:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(251, 209, 48, 0.55);
+}
+.cs-header-phone:active { transform: translateY(0) scale(0.97); box-shadow: none; }
+
+/* Ниже 1180px восемь кнопок в строку не помещаются. На вторую строку их не
+   переносим — шапка липкая, второй ряд съел бы экран; вместо этого ряд
+   прокручивается вбок, обрезанная у края кнопка сама показывает, что там
+   есть продолжение. */
+@media (max-width: 1180px) {
+  .cs-navbar-inner {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cs-navbar-inner::-webkit-scrollbar { display: none; }
+  .cs-navbtn { flex: 0 0 auto; }
 }
 
-/* Ниже 760px в строке остаются логотип, «Записаться» и бургер: два кружка
-   (телефон и Telegram) начинают теснить кнопку. Телефон при этом никуда
-   не девается — он первым пунктом в бургер-меню. */
-@media (max-width: 760px) {
-  .cs-header-icons { display: none !important; }
+/* Ниже 700px номер начинает теснить «Записаться» — от телефона остаётся
+   жёлтая кнопка с трубкой. Сам номер никуда не девается: он в «Контактах»,
+   в подвале и по нажатию этой же кнопки. */
+@media (max-width: 700px) {
+  .cs-header-phone-label { display: none; }
+  .cs-header-phone { padding: 0 14px !important; }
 }
 
-/* Ниже 560px не помещается уже и кнопка: она наезжала на логотип и
-   выталкивала бургер за край экрана. Здесь в шапке остаются логотип и
-   бургер, а «Записаться» никуда не пропадает — она есть и в бургер-меню,
-   и в плавающем виджете внизу экрана. */
+/* Ниже 560px в строке остаётся только знак: надпись COLOR BABY HOUSE
+   выталкивала кнопки за край экрана. Знак остаётся ссылкой на главную. */
 @media (max-width: 560px) {
-  .cs-header-cta { display: none !important; }
+  /* !important нужен: display: flex у надписи стоит инлайном в JSX, обычная
+     специфичность его не перебивает. */
+  .cs-brand-word { display: none !important; }
+  .cs-navbar-inner { padding-top: 8px; padding-bottom: 8px; }
+  /* Шапка двухэтажная и липкая — на телефоне поджимаем оба ряда, иначе
+     она занимает пятую часть экрана. padding у верхнего ряда стоит
+     инлайном, отсюда !important. */
+  .cs-header-inner { padding-top: 8px !important; padding-bottom: 8px !important; }
 }
 
 /* ---------- Планшеты и телефоны (<= 900px) ---------- */

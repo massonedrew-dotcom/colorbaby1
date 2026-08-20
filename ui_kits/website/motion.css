@@ -250,6 +250,7 @@
 }
 .cs-header-inner { transition: padding 320ms var(--cs-ease-soft); }
 .cs-header.is-stuck .cs-header-inner { padding-top: 6px; padding-bottom: 6px; }
+.cs-header.is-stuck .cs-navbar-inner { padding-top: 6px; padding-bottom: 6px; }
 /* Бренд слегка уменьшается (масштабируем ссылку целиком — на самом солнце
    уже висит анимация вращения, её transform перебил бы наш). */
 .cs-brand {
@@ -258,19 +259,6 @@
 }
 .cs-header.is-stuck .cs-brand { transform: scale(0.88); }
 
-/* Подчёркивание пунктов меню */
-.cs-nav a { position: relative; }
-.cs-nav a::after {
-  content: '';
-  position: absolute;
-  left: 18px; right: 18px; bottom: 5px;
-  height: 2px; border-radius: 2px;
-  background: var(--color-primary);
-  transform: scaleX(0);
-  transition: transform 280ms var(--cs-ease-soft);
-}
-.cs-nav a:hover::after,
-.cs-nav a:focus-visible::after { transform: scaleX(1); }
 
 /* Кнопки в шапке стоят неподвижно.
    Подъём при наведении зашит в сам компонент Button дизайн-системы: он
@@ -295,19 +283,6 @@
   pointer-events: none;
 }
 
-/* Мобильное меню: выезжает, пункты — волной */
-.cs-mobile-nav.cs-mobile-nav-open { animation: cs-drop 300ms var(--cs-ease-soft) backwards; }
-@keyframes cs-drop {
-  from { opacity: 0; transform: translate3d(0, -12px, 0); }
-  to   { opacity: 1; transform: none; }
-}
-.cs-mobile-nav.cs-mobile-nav-open > * { animation: cs-enter-up 380ms var(--cs-ease-soft) backwards; }
-.cs-mobile-nav.cs-mobile-nav-open > *:nth-child(1) { animation-delay:  40ms; }
-.cs-mobile-nav.cs-mobile-nav-open > *:nth-child(2) { animation-delay:  80ms; }
-.cs-mobile-nav.cs-mobile-nav-open > *:nth-child(3) { animation-delay: 120ms; }
-.cs-mobile-nav.cs-mobile-nav-open > *:nth-child(4) { animation-delay: 160ms; }
-.cs-mobile-nav.cs-mobile-nav-open > *:nth-child(5) { animation-delay: 200ms; }
-.cs-mobile-nav.cs-mobile-nav-open > *:nth-child(n+6) { animation-delay: 240ms; }
 
 /* ============================================================
    7. Плавающая кнопка заявки: мягкая пульсация раз в несколько секунд
@@ -664,8 +639,6 @@
   .cs-heartbeat,
   .cs-sun-spin,
   .cs-gradient-text,
-  .cs-mobile-nav.cs-mobile-nav-open,
-  .cs-mobile-nav.cs-mobile-nav-open > *,
   .cs-qa-pill::before {
     animation: none !important;
     opacity: 1 !important;
@@ -707,7 +680,8 @@
   .cs-cta button,
   .cs-header-inner,
   .cs-brand,
-  .cs-nav a::after {
+  .cs-navbtn,
+  .cs-header-phone {
     transition: none !important;
   }
   .cs-card:hover,
